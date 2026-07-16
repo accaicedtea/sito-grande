@@ -1,0 +1,736 @@
+/* ============================================================
+   TEMA "ROCK" — manifesto da concerto: categorie come "Set",
+   piatti come brani numerati, nav a forma di plettro.
+   ============================================================ */
+[data-theme="rock"] {
+  --paper: #ece6d8;
+  --paper-dim: #ded5c1;
+  --ink: #161311;
+  --ink-70: rgba(22, 19, 17, 0.7);
+  --ink-45: rgba(22, 19, 17, 0.45);
+  --ink-25: rgba(22, 19, 17, 0.22);
+  --accent: #ff2f6e;
+  --ff-display: "Anton", sans-serif;
+  --ff-body: "Archivo", sans-serif;
+  --ff-mono: "JetBrains Mono", monospace;
+
+  color: var(--ink);
+  font-family: var(--ff-body);
+}
+
+[data-theme="rock"].menu {
+  background: var(--paper);
+}
+
+[data-theme="rock"] .menu__grain {
+  display: block;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* HERO */
+[data-theme="rock"] .menu__hero {
+  padding: clamp(2.8rem, 8vw, 4.6rem) clamp(1.25rem, 5vw, 3rem) clamp(2rem, 5vw, 2.8rem);
+  border-bottom: 4px solid var(--ink);
+  text-align: left;
+  background-image: radial-gradient(var(--ink-25) 1px, transparent 1.4px);
+  background-size: 10px 10px;
+  background-position: -4px -4px;
+}
+
+[data-theme="rock"] .menu__kicker {
+  display: inline-block;
+  font-family: var(--ff-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--paper);
+  background: var(--ink);
+  padding: 0.3rem 0.6rem;
+  margin-bottom: 1rem;
+}
+
+[data-theme="rock"] .menu__title-main {
+  display: block;
+  font-family: var(--ff-display);
+  font-weight: 400;
+  font-size: clamp(3.4rem, 13vw, 7.5rem);
+  line-height: 0.86;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  text-shadow: 4px 4px 0 var(--accent);
+}
+
+[data-theme="rock"] .menu__title-sub {
+  font-family: var(--ff-display);
+  font-weight: 400;
+  font-size: clamp(3.4rem, 13vw, 7.5rem);
+  line-height: 0.86;
+  letter-spacing: 0.01em;
+  text-shadow: 4px 4px 0 var(--accent);
+}
+
+[data-theme="rock"] .menu__subtitle {
+  margin-top: 1.1rem;
+  max-width: 30rem;
+  font-size: 0.98rem;
+  color: var(--ink-70);
+}
+
+[data-theme="rock"] .menu__theme-switcher {
+  color: var(--ink);
+  justify-content: flex-start;
+  padding-left: clamp(1.25rem, 5vw, 3rem);
+}
+
+[data-theme="rock"] .menu__theme-btn.is-active {
+  background: var(--accent);
+  color: var(--ink);
+  border-color: var(--accent);
+}
+
+/* NAV — plettri */
+[data-theme="rock"] .menu__nav {
+  background: var(--paper);
+  border-bottom: 4px solid var(--ink);
+  padding: 1rem clamp(1.25rem, 5vw, 3rem);
+  align-items: center;
+}
+
+[data-theme="rock"] .menu__nav-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.1rem 0.7rem 0.9rem;
+  min-width: 4.6rem;
+  background: var(--ink);
+  color: var(--paper);
+  clip-path: polygon(50% 0%, 88% 20%, 100% 58%, 68% 100%, 32% 100%, 0% 58%, 12% 20%);
+  font-family: var(--ff-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-align: center;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+[data-theme="rock"] .menu__nav-btn:hover {
+  transform: translateY(-3px);
+}
+
+[data-theme="rock"] .menu__nav-btn.is-active {
+  background: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* STATO */
+[data-theme="rock"] .menu__state {
+  padding: 4rem 0;
+  color: var(--ink-70);
+  font-family: var(--ff-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* CATEGORIA — striscia storta */
+[data-theme="rock"] .menu__main {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 3rem);
+}
+
+[data-theme="rock"] .menu__category {
+  padding-top: clamp(2.6rem, 6vw, 3.6rem);
+}
+
+[data-theme="rock"] .menu__category-head {
+  display: inline-flex;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.6rem 1.1rem;
+  transform: rotate(-1deg);
+  box-shadow: 6px 6px 0 var(--accent);
+  gap: 0.8rem;
+}
+
+[data-theme="rock"] .menu__category-eyebrow {
+  display: inline-block;
+  font-family: var(--ff-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+[data-theme="rock"] .menu__category-title {
+  font-family: var(--ff-display);
+  font-weight: 400;
+  font-size: clamp(1.7rem, 5vw, 2.4rem);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+[data-theme="rock"] .menu__category-meta {
+  display: none;
+}
+
+/* qui l'ordine viene già dato dal numero di brano */
+
+/* SETLIST — numerazione via CSS counter, nessun markup extra */
+[data-theme="rock"] .menu__items {
+  counter-reset: track;
+  padding: 1.6rem 0 0.4rem;
+}
+
+[data-theme="rock"] .menu__item {
+  padding: 1rem 0;
+  border-bottom: 1px dashed var(--ink-25);
+  opacity: 0;
+  animation: rock-rise 0.5s ease forwards;
+}
+
+@keyframes rock-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-theme="rock"] .menu__item-row {
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+[data-theme="rock"] .menu__item-row::before {
+  counter-increment: track;
+  content: counter(track, decimal-leading-zero) ".";
+  font-family: var(--ff-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--ink-45);
+  margin-right: 0.3rem;
+}
+
+[data-theme="rock"] .menu__item-name {
+  font-weight: 700;
+  font-size: 1.08rem;
+  color: var(--ink);
+}
+
+[data-theme="rock"] .menu__item-badge {
+  font-family: var(--ff-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--accent);
+  color: var(--ink);
+  padding: 0.14rem 0.4rem;
+  margin-left: 0.5rem;
+  transform: translateY(-1px);
+}
+
+[data-theme="rock"] .menu__item-price {
+  font-family: var(--ff-mono);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--ink);
+  white-space: nowrap;
+  margin-left: auto;
+}
+
+[data-theme="rock"] .menu__item-desc {
+  margin-top: 0.35rem;
+  font-size: 0.87rem;
+  color: var(--ink-70);
+  max-width: 36rem;
+}
+
+[data-theme="rock"] .menu__item-tags {
+  margin-top: 0.6rem;
+}
+
+[data-theme="rock"] .menu__tag {
+  font-family: var(--ff-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border: 1.5px dashed var(--ink-45);
+  padding: 0.16rem 0.45rem;
+  color: var(--ink-70);
+}
+
+[data-theme="rock"] .menu__tag--spicy {
+  color: var(--accent);
+  border-color: var(--accent);
+  border-style: solid;
+}
+
+[data-theme="rock"] .menu__allergen{
+  font-family: var(--ff-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--accent);
+  border: 1.5px solid var(--ink);
+  padding: 0.14rem 0.4rem;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+
+[data-theme="rock"] .menu__allergens-label{
+  font-family: var(--ff-mono);
+  color: var(--ink-45);
+  font-weight: 600;
+}
+
+[data-theme="rock"] .menu__item-note {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--ink-45);
+}
+
+
+/* FOOTER */
+[data-theme="rock"] .menu__footer {
+  margin-top: 2.6rem;
+  padding: 2.8rem clamp(1.25rem, 5vw, 3rem) 3rem;
+  border-top: 4px solid var(--ink);
+  background: var(--paper-dim);
+}
+
+[data-theme="rock"] .menu__footer-mark {
+  font-family: var(--ff-mono);
+  font-weight: 700;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--accent);
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
+  margin-bottom: 1.4rem;
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+[data-theme="rock"] .menu__footer-grid {
+  max-width: 840px;
+  margin: 0 auto;
+  font-size: 0.88rem;
+}
+
+[data-theme="rock"] .menu__footer-label {
+  font-family: var(--ff-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+  margin-bottom: 0.25rem;
+}
+
+[data-theme="rock"] .menu__footer-note {
+  max-width: 840px;
+  margin: 1.6rem auto 0;
+  font-family: var(--ff-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+  text-align: center;
+}
+
+/* ============================================================
+   FRAMEWORK GRAFICO — declinazione tema "rock"
+   ============================================================ */
+
+/* Bottoni — effetto "pressione" sull'ombra dura */
+[data-theme="rock"] .gfx-btn--primary {
+  background: var(--accent);
+  color: var(--ink);
+  border-color: var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+
+[data-theme="rock"] .gfx-btn--primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+[data-theme="rock"] .gfx-btn--primary:active {
+  transform: translate(1px, 1px);
+  box-shadow: 2px 2px 0 var(--ink);
+}
+
+[data-theme="rock"] .gfx-btn--outline {
+  background: transparent;
+  color: var(--ink);
+  border: 2px dashed var(--ink);
+}
+
+[data-theme="rock"] .gfx-btn--outline:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-style: solid;
+}
+
+[data-theme="rock"] .gfx-btn--ghost {
+  background: transparent;
+  color: var(--ink-70);
+  border-color: transparent;
+}
+
+[data-theme="rock"] .gfx-btn--ghost:hover {
+  color: var(--accent);
+}
+
+/* Card — flyer da bacheca, leggermente storto */
+[data-theme="rock"] .gfx-card {
+  background: var(--paper-dim);
+  border: 1.5px dashed var(--ink-45);
+  color: var(--ink);
+  transform: rotate(-0.5deg);
+  box-shadow: 5px 5px 0 var(--ink);
+  transition: transform 0.3s cubic-bezier(.2, .7, .3, 1), box-shadow 0.3s ease, background 0.3s ease;
+}
+
+[data-theme="rock"] .gfx-card:hover {
+  background: var(--paper);
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 7px 7px 0 var(--accent);
+}
+
+[data-theme="rock"] .gfx-card__title {
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  font-size: 1.3rem;
+}
+
+[data-theme="rock"] .gfx-card__body {
+  color: var(--ink-70);
+  font-size: 0.9rem;
+}
+
+/* Navbar */
+[data-theme="rock"].gfx-navbar,
+[data-theme="rock"] .gfx-navbar {
+  background: var(--paper);
+  border-bottom: 4px solid var(--ink);
+  color: var(--ink);
+}
+
+[data-theme="rock"] .gfx-navbar__panel {
+  background: var(--paper);
+}
+
+[data-theme="rock"] .gfx-navbar__brand {
+  font-weight: 400;
+  font-size: 1.6rem;
+  text-shadow: 2px 2px 0 var(--accent);
+}
+
+[data-theme="rock"] .gfx-navbar__link {
+  color: var(--ink-70);
+}
+
+[data-theme="rock"] .gfx-navbar__link:hover,
+[data-theme="rock"] .gfx-navbar__link.is-active {
+  color: var(--ink);
+}
+
+[data-theme="rock"] .gfx-navbar__link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 3px;
+  background: var(--accent);
+}
+
+/* FOOTER */
+[data-theme="rock"].footer {
+  padding: 2.8rem clamp(1.25rem, 5vw, 3rem) 3rem;
+  border-top: 4px solid var(--ink);
+  background: var(--paper-dim);
+}
+
+[data-theme="rock"].footer .footer__stub {
+  background: var(--accent);
+  color: var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+
+[data-theme="rock"].footer .footer__grid {
+  color: var(--ink-70);
+}
+
+[data-theme="rock"].footer .footer__label {
+  color: var(--ink-45);
+}
+
+[data-theme="rock"].footer .footer__note {
+  color: var(--ink-45);
+}
+
+
+[data-theme="rock"] .menu__whatsnew{
+  border-bottom:4px dashed var(--ink-25);
+  padding-bottom:1.6rem;
+}
+[data-theme="rock"] .menu__whatsnew-title{
+  font-family:var(--ff-display);
+  font-size:1.3rem;
+  color:var(--ink);
+  text-shadow:2px 2px 0 var(--accent);
+}
+[data-theme="rock"] .menu__whatsnew-item{
+  background:var(--paper-dim);
+  border:1.5px dashed var(--ink-45);
+}
+[data-theme="rock"] .menu__whatsnew-price{
+  font-family:var(--ff-mono);
+  font-weight:700;
+  color:var(--ink);
+}
+
+[data-theme="rock"] .menu__allergen-key{
+  background:var(--paper-dim);
+  border:1.5px dashed var(--ink-45);
+  box-shadow:5px 5px 0 var(--ink);
+    border-style: solid;
+border-width: 1px 0;
+border-color: #000;
+}
+[data-theme="rock"] .menu__allergen-key-title{
+  margin-left: 10px;
+  font-family:var(--ff-display);
+  color:var(--ink);
+}
+[data-theme="rock"] .menu__allergen-key-item{
+  background:var(--paper);
+  color:var(--ink);
+  border:1.5px dashed var(--ink-45);
+}
+[data-theme="rock"] .menu__allergen-key-item:hover{
+  box-shadow:3px 3px 0 var(--accent);
+}
+[data-theme="rock"] .menu__allergen-key-icon{ color:var(--accent); }
+
+
+
+
+.events[data-theme="rock"]{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--ff-body);
+  min-height:100vh;
+}
+
+[data-theme="rock"] .events__hero{
+  border-bottom:4px solid var(--ink);
+  background-image: radial-gradient(var(--ink-25) 1px, transparent 1.4px);
+  background-size:10px 10px;
+  background-position:-4px -4px;
+  padding: clamp(1rem, 1vw, 4.6rem) clamp(1.25rem, 5vw, 3rem) clamp(2.4rem, 6vw, 3.2rem);
+}
+[data-theme="rock"] .events__hero-title{
+  font-family:var(--ff-display);
+  font-weight:400;
+  font-size:clamp(2.6rem, 9vw, 5rem);
+  line-height:0.9;
+  color:var(--ink);
+  text-shadow:4px 4px 0 var(--accent);
+}
+[data-theme="rock"] .events__hero-subtitle{ margin-top:0.9rem; color:var(--ink-70); }
+[data-theme="rock"] .events__hero-dates{
+  display:inline-block;
+  margin-top:1.1rem;
+  font-family:var(--ff-mono);
+  font-size:0.72rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  background:var(--ink);
+  color:var(--paper);
+  padding:0.4rem 0.7rem;
+}
+
+[data-theme="rock"] .events__list{
+  padding: clamp(2.2rem, 6vw, 3.2rem) clamp(1.25rem, 5vw, 3rem) clamp(3rem, 7vw, 4rem);
+}
+
+[data-theme="rock"] .events__card{
+  background:var(--paper-dim);
+  border:1.5px dashed var(--ink-45);
+  transform:rotate(-0.5deg);
+  box-shadow:5px 5px 0 var(--ink);
+}
+[data-theme="rock"] .events__card:nth-child(even){ transform:rotate(0.6deg); }
+[data-theme="rock"] .events__card:hover{
+  background:var(--paper);
+  transform:rotate(0deg) translateY(-4px);
+  box-shadow:7px 7px 0 var(--accent);
+}
+
+[data-theme="rock"] .events__card-ribbon{
+  background:var(--ink);
+  color:var(--paper);
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 85% 100%, 70% 78%, 55% 100%, 40% 78%, 25% 100%, 10% 78%, 0 100%);
+  box-shadow:3px 3px 0 var(--accent);
+}
+[data-theme="rock"] .events__card-month{ font-family:var(--ff-mono); }
+[data-theme="rock"] .events__card-day{ font-family:var(--ff-display); }
+
+[data-theme="rock"] .events__badge{ font-family:var(--ff-mono); }
+[data-theme="rock"] .events__badge--today{ background:var(--accent); color:var(--ink); font-weight:700; }
+[data-theme="rock"] .events__badge--finished{ border:1.5px dashed var(--ink-45); color:var(--ink-45); }
+
+[data-theme="rock"] .events__card-image{ background:var(--ink); }
+[data-theme="rock"] .events__card-image img{ filter:grayscale(1) contrast(1.15); }
+[data-theme="rock"] .events__card:hover .events__card-image img{ filter:grayscale(0.15) contrast(1.05); }
+[data-theme="rock"] .events__card-image--placeholder{ color:var(--paper); }
+
+[data-theme="rock"] .events__card-title{ font-family:var(--ff-display); font-weight:400; font-size:1.15rem; color:var(--ink); }
+[data-theme="rock"] .events__card-date{ font-family:var(--ff-mono); color:var(--ink-70); }
+
+[data-theme="rock"] .events__empty-title{ font-family:var(--ff-display); color:var(--ink); }
+[data-theme="rock"] .events__empty-text{ color:var(--ink-70); }
+
+[data-theme="rock"] .events__spinner{
+  border:3px dashed var(--accent);
+  background: radial-gradient(circle at center, var(--paper) 0 5px, var(--ink) 6px 100%);
+}
+
+
+
+/* ============================================================
+   RESERVATION — declinazione tema "rock"
+   ============================================================ */
+.reservation-page[data-theme="rock"]{
+  --text: var(--ink);
+  --muted: var(--ink-70);
+  --line: var(--ink-25);
+  --surface-strong: var(--paper-dim);
+  --surface-soft: var(--paper);
+  --shadow: 5px 5px 0 var(--ink);
+
+  --radius-xl: 0px;
+  --radius-lg: 0px;
+  --radius-md: 0px;
+  --radius-sm: 0px;
+
+  --green: var(--accent);
+  --green-darker: var(--accent);
+  --amber: #e0a94f;
+  --red: var(--accent);
+
+  --booking-accent: var(--accent);
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ff-body);
+}
+
+.reservation-page[data-theme="rock"] h1,
+.reservation-page[data-theme="rock"] h2,
+.reservation-page[data-theme="rock"] h3{
+  font-family: var(--ff-display);
+  font-weight: 400;
+}
+
+.reservation-page[data-theme="rock"] .eyebrow{
+  font-family: var(--ff-mono);
+}
+
+.reservation-page[data-theme="rock"] .hero-card,
+.reservation-page[data-theme="rock"] .booking-card,
+.reservation-page[data-theme="rock"] .summary-card,
+.reservation-page[data-theme="rock"] .restaurant-info-card,
+.reservation-page[data-theme="rock"] .order-card{
+  background: var(--paper-dim);
+  border: 1.5px dashed var(--ink-45);
+  border-radius: 0;
+  box-shadow: 5px 5px 0 var(--ink);
+}
+
+.reservation-page[data-theme="rock"] .primary-button,
+.reservation-page[data-theme="rock"] .confirm-reservation,
+.reservation-page[data-theme="rock"] .action-btn.primary,
+.reservation-page[data-theme="rock"] .order-card-toggle{
+  background: var(--accent);
+  color: var(--ink);
+  border-radius: 0;
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.reservation-page[data-theme="rock"] .primary-button:hover,
+.reservation-page[data-theme="rock"] .confirm-reservation:hover{
+  transform: translate(-2px,-2px);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.reservation-page[data-theme="rock"] .ghost-button,
+.reservation-page[data-theme="rock"] .calendar-nav-button{
+  background: transparent;
+  color: var(--ink);
+  border: 2px dashed var(--ink);
+  border-radius: 0;
+}
+.reservation-page[data-theme="rock"] .ghost-button:hover,
+.reservation-page[data-theme="rock"] .calendar-nav-button:hover{
+  background: var(--ink);
+  color: var(--paper);
+  border-style: solid;
+}
+
+.reservation-page[data-theme="rock"] .danger-button{
+  background: transparent;
+  border: 1.5px dashed var(--accent);
+  color: var(--accent);
+  border-radius: 0;
+}
+
+.reservation-page[data-theme="rock"] .calendar-day,
+.reservation-page[data-theme="rock"] .calendar-empty,
+.reservation-page[data-theme="rock"] .calendar-shell,
+.reservation-page[data-theme="rock"] .selected-day-banner,
+.reservation-page[data-theme="rock"] .summary-base-card,
+.reservation-page[data-theme="rock"] .contact-box,
+.reservation-page[data-theme="rock"] .form-grid input,
+.reservation-page[data-theme="rock"] .form-grid select,
+.reservation-page[data-theme="rock"] .notes-field textarea{
+  background: var(--paper);
+  border: 1.5px dashed var(--ink-45);
+  border-radius: 0;
+  color: var(--ink);
+}
+
+.reservation-page[data-theme="rock"] .form-grid input:focus,
+.reservation-page[data-theme="rock"] .form-grid select:focus,
+.reservation-page[data-theme="rock"] .notes-field textarea:focus{
+  border-style: solid;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(255,47,110,0.15);
+}
+
+.reservation-page[data-theme="rock"] .step-pill{
+  border-radius: 0;
+  border: 1.5px dashed var(--ink-45);
+}
+.reservation-page[data-theme="rock"] .step-pill.active{
+  background: var(--accent);
+  color: var(--ink);
+  border-style: solid;
+}
+
+.reservation-page[data-theme="rock"] .contact-box a{
+  color: var(--accent);
+}

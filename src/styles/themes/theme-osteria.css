@@ -1,0 +1,791 @@
+/* ============================================================
+   TEMA "OSTERIA" — trattoria serale, oro su vinaccia scura,
+   card con prezzo a talloncino da comanda.
+   ============================================================ */
+[data-theme="osteria"] {
+  --bg: #170a0f;
+  --bg-card: #2a121b;
+  --bg-card-hover: #341621;
+  --wine: #7c2138;
+  --gold: #c69a3f;
+  --gold-light: #e6c777;
+  --cream: #f2e6d3;
+  --muted: #b39a8d;
+  --leaf: #728f6d;
+  --line: rgba(230, 199, 119, 0.18);
+  --ff-display: "Fraunces", serif;
+  --ff-body: "Sora", sans-serif;
+  --ff-mono: "Space Mono", monospace;
+
+  color: var(--cream);
+  font-family: var(--ff-body);
+}
+
+[data-theme="osteria"].menu {
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(124, 33, 56, 0.35), transparent 60%),
+    var(--bg);
+}
+
+[data-theme="osteria"] .menu__grain {
+  display: block;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* HERO */
+[data-theme="osteria"] .menu__hero {
+  padding: clamp(3rem, 9vw, 5.5rem) clamp(1.25rem, 4vw, 3rem) clamp(2rem, 5vw, 3rem);
+  border-bottom: 1px solid var(--line);
+}
+
+[data-theme="osteria"] .menu__kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--ff-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+  margin-bottom: 1.4rem;
+}
+
+[data-theme="osteria"] .menu__kicker::before,
+[data-theme="osteria"] .menu__kicker::after {
+  content: "";
+  width: 26px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.6;
+}
+
+[data-theme="osteria"] .menu__title-main {
+  font-family: var(--ff-display);
+  font-weight: 600;
+  font-style: italic;
+  font-size: clamp(2.6rem, 8vw, 5rem);
+  color: var(--cream);
+  line-height: 1.02;
+}
+
+[data-theme="osteria"] .menu__title-sub {
+  font-family: var(--ff-mono);
+  font-style: normal;
+  font-weight: 400;
+  font-size: 0.32em;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 0.9rem;
+}
+
+[data-theme="osteria"] .menu__subtitle {
+  max-width: 34rem;
+  margin: 1.4rem auto 0;
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+[data-theme="osteria"] .menu__theme-switcher {
+  color: var(--gold-light);
+}
+
+[data-theme="osteria"] .menu__theme-btn.is-active {
+  background: var(--gold-light);
+  color: var(--bg);
+}
+
+/* NAV */
+[data-theme="osteria"] .menu__nav {
+  background: rgba(23, 10, 15, 0.86);
+  backdrop-filter: blur(10px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+  padding: 0.85rem clamp(1.25rem, 4vw, 3rem);
+}
+
+[data-theme="osteria"] .menu__nav-btn {
+  padding: 0.55rem 1.1rem;
+  font-family: var(--ff-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-radius: 999px;
+  transition: color 0.25s ease, background 0.25s ease;
+}
+
+[data-theme="osteria"] .menu__nav-btn:hover {
+  color: var(--cream);
+}
+
+[data-theme="osteria"] .menu__nav-btn.is-active {
+  color: var(--bg);
+  background: var(--gold-light);
+}
+
+/* STATO */
+[data-theme="osteria"] .menu__state {
+  padding: 4rem 0;
+  color: var(--muted);
+  font-family: var(--ff-display);
+  font-style: italic;
+  font-size: 1.15rem;
+}
+
+/* CATEGORIA */
+[data-theme="osteria"] .menu__main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+
+[data-theme="osteria"] .menu__category {
+  padding: clamp(3rem, 8vw, 5rem) 0 1rem;
+  scroll-margin-top: 4.5rem;
+}
+
+[data-theme="osteria"] .menu__category-head {
+  margin-bottom: 2.4rem;
+  padding-bottom: 1.1rem;
+  border-bottom: 1px solid var(--line);
+  justify-content: space-between;
+}
+
+[data-theme="osteria"] .menu__category-title {
+  font-family: var(--ff-display);
+  font-weight: 700;
+  font-size: clamp(1.8rem, 4.5vw, 2.6rem);
+  color: var(--cream);
+}
+
+[data-theme="osteria"] .menu__category-meta {
+  font-family: var(--ff-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+/* GRIGLIA CARD */
+[data-theme="osteria"] .menu__items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.6rem 1.8rem;
+}
+
+[data-theme="osteria"] .menu__item {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.5rem 1.5rem 1.6rem;
+  transition: transform 0.35s cubic-bezier(.2, .7, .3, 1), background 0.35s ease, border-color 0.35s ease;
+  animation: osteria-reveal 0.6s ease both;
+}
+
+@keyframes osteria-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-theme="osteria"] .menu__item:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(230, 199, 119, 0.35);
+  transform: translateY(-4px);
+}
+
+[data-theme="osteria"] .menu__item-row {
+  display: block;
+}
+
+[data-theme="osteria"] .menu__item-name {
+  font-family: var(--ff-display);
+  font-weight: 600;
+  font-size: 1.18rem;
+  color: var(--cream);
+  padding-right: 4.6rem;
+}
+
+[data-theme="osteria"] .menu__item-badge {
+  position: absolute;
+  top: 14px;
+  left: -1px;
+  background: var(--wine);
+  color: var(--cream);
+  font-family: var(--ff-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.28rem 0.6rem 0.28rem 0.7rem;
+  border-radius: 0 5px 5px 0;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="osteria"] .menu__item-price {
+  position: absolute;
+  top: -10px;
+  right: 14px;
+  min-width: 3.6rem;
+  padding: 0.5rem 0.55rem 0.4rem;
+  background: var(--gold-light);
+  color: #241019;
+  font-family: var(--ff-mono);
+  font-weight: 700;
+  font-size: 0.95rem;
+  text-align: center;
+  border-radius: 3px;
+  transform: rotate(4deg);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+  transition: transform 0.35s cubic-bezier(.2, .7, .3, 1);
+}
+
+[data-theme="osteria"] .menu__item:hover .menu__item-price {
+  transform: rotate(0deg) translateY(-2px);
+}
+
+[data-theme="osteria"] .menu__item-desc {
+  margin-top: 0.5rem;
+  font-size: 0.87rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-right: 4.6rem;
+}
+
+[data-theme="osteria"] .menu__item-tags {
+  margin-top: 0.95rem;
+}
+
+[data-theme="osteria"] .menu__tag {
+  font-family: var(--ff-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--leaf);
+  border: 1px solid rgba(114, 143, 109, 0.45);
+  padding: 0.2rem 0.5rem;
+  border-radius: 6px;
+}
+
+[data-theme="osteria"] .menu__tag--spicy {
+  color: var(--wine);
+  border-color: rgba(124, 33, 56, 0.5);
+}
+
+[data-theme="osteria"] .menu__allergen{
+  font-size: 0.62rem;
+  font-weight: 700;
+  font-family: var(--ff-mono);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--gold-light);
+  border: 1px solid var(--wine);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+}
+
+[data-theme="osteria"] .menu__allergens-label{
+  font-family: var(--ff-mono);
+  color: var(--muted);
+  font-weight: 500;
+}
+
+[data-theme="osteria"] .menu__item-note {
+  font-size: 0.75rem;
+  color: var(--gold-light);
+  font-style: italic;
+}
+
+/* FOOTER */
+[data-theme="osteria"] .menu__footer {
+  margin-top: 3rem;
+  padding: 3.5rem clamp(1.25rem, 4vw, 3rem) 3rem;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+[data-theme="osteria"] .menu__footer-mark {
+  font-family: var(--ff-display);
+  font-style: italic;
+  font-size: 1.6rem;
+  color: var(--gold-light);
+  margin-bottom: 0.9rem;
+}
+
+[data-theme="osteria"] .menu__footer-grid {
+  max-width: 840px;
+  margin: 0 auto;
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+[data-theme="osteria"] .menu__footer-label {
+  color: var(--cream);
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+[data-theme="osteria"] .menu__footer-note {
+  margin-top: 1.6rem;
+  font-family: var(--ff-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(179, 154, 141, 0.6);
+}
+
+/* ============================================================
+   FRAMEWORK GRAFICO — declinazione tema "osteria"
+   ============================================================ */
+
+/* Bottoni */
+[data-theme="osteria"] .gfx-btn--primary {
+  background: var(--gold-light);
+  color: #241019;
+  border-radius: 999px;
+}
+
+[data-theme="osteria"] .gfx-btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="osteria"] .gfx-btn--outline {
+  background: transparent;
+  color: var(--gold-light);
+  border-color: var(--gold-light);
+  border-radius: 999px;
+}
+
+[data-theme="osteria"] .gfx-btn--outline:hover {
+  background: var(--gold-light);
+  color: #241019;
+}
+
+[data-theme="osteria"] .gfx-btn--ghost {
+  background: transparent;
+  color: var(--muted);
+  border-color: transparent;
+}
+
+[data-theme="osteria"] .gfx-btn--ghost:hover {
+  color: var(--cream);
+}
+
+/* Card */
+[data-theme="osteria"] .gfx-card {
+  background: var(--bg-card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--cream);
+  transition: transform 0.3s cubic-bezier(.2, .7, .3, 1), background 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="osteria"] .gfx-card:hover {
+  background: var(--bg-card-hover);
+  border-color: rgba(230, 199, 119, 0.35);
+  transform: translateY(-4px);
+}
+
+[data-theme="osteria"] .gfx-card__title {
+  font-weight: 600;
+  font-style: italic;
+  color: var(--cream);
+  font-size: 1.2rem;
+}
+
+[data-theme="osteria"] .gfx-card__body {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* Navbar */
+[data-theme="osteria"].gfx-navbar,
+[data-theme="osteria"] .gfx-navbar {
+  background: rgba(23, 10, 15, 0.86);
+  backdrop-filter: blur(10px) saturate(140%);
+  border-bottom: 1px solid var(--line);
+  color: var(--cream);
+}
+
+[data-theme="osteria"] .gfx-navbar__panel {
+  background: inherit;
+  backdrop-filter: inherit;
+}
+
+[data-theme="osteria"] .gfx-navbar__brand {
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.3rem;
+  color: var(--gold-light);
+}
+
+[data-theme="osteria"] .gfx-navbar__link {
+  color: var(--muted);
+}
+
+[data-theme="osteria"] .gfx-navbar__link:hover,
+[data-theme="osteria"] .gfx-navbar__link.is-active {
+  color: var(--cream);
+}
+
+[data-theme="osteria"] .gfx-navbar__link.is-active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ============================================================
+   FOOTER (componente globale — data-theme è sul tag stesso)
+   ============================================================ */
+[data-theme="osteria"].footer {
+
+  padding: 3.5rem clamp(1.25rem, 4vw, 3rem) 3rem;
+  border-top: 1px solid var(--line);
+  background: rgba(23, 10, 15, 0.86);
+  text-align: center;
+}
+
+[data-theme="osteria"].footer .footer__stub {
+  background: var(--gold-light);
+  color: #241019;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="osteria"].footer .footer__grid {
+  color: var(--muted);
+  font-weight: 300;
+}
+
+[data-theme="osteria"].footer .footer__label {
+  color: var(--cream);
+  font-weight: 500;
+}
+
+[data-theme="osteria"].footer .footer__note {
+  color: rgba(179, 154, 141, 0.6);
+}
+
+
+[data-theme="osteria"] .menu__whatsnew{
+  border-bottom:1px solid var(--line);
+  padding-bottom:1.6rem;
+}
+[data-theme="osteria"] .menu__whatsnew-title{
+  font-family:var(--ff-display);
+  font-style:italic;
+  font-size:1.1rem;
+  color:var(--gold-light);
+}
+[data-theme="osteria"] .menu__whatsnew-item{
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  border-radius:10px;
+  color:var(--cream);
+}
+[data-theme="osteria"] .menu__whatsnew-price{
+  font-family:var(--ff-mono);
+  color:var(--gold-light);
+  font-weight:700;
+}
+
+[data-theme="osteria"] .menu__allergen-key{
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  border-style: solid;
+border-width: 1px 0;
+border-color: #000;
+
+  box-shadow:0 8px 16px rgba(0,0,0,0.35);
+}
+[data-theme="osteria"] .menu__allergen-key-title{
+  margin-left: 10px;
+  font-family:var(--ff-display);
+  font-style:italic;
+  color:var(--gold-light);
+}
+[data-theme="osteria"] .menu__allergen-key-item{
+  background:var(--bg);
+  color:var(--cream);
+  border:1px solid var(--line);
+}
+[data-theme="osteria"] .menu__allergen-key-item:hover{
+  background:var(--bg-card-hover);
+  border-color:rgba(230,199,119,0.35);
+}
+[data-theme="osteria"] .menu__allergen-key-icon{ color:var(--gold-light); }
+
+
+
+
+
+
+
+
+.events[data-theme="osteria"]{
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(124,33,56,0.35), transparent 60%),
+    var(--bg);
+  color:var(--cream);
+  font-family:var(--ff-body);
+  min-height:100vh;
+}
+
+[data-theme="osteria"] .events__hero{
+  padding: clamp(1rem, 1vw, 5.5rem) clamp(1.25rem,4vw,3rem) clamp(2rem, 5vw, 3rem);
+  border-bottom:1px solid var(--line);
+}
+[data-theme="osteria"] .events__hero-title{
+  font-family:var(--ff-display);
+  font-weight:600;
+  font-style:italic;
+  font-size:clamp(2.4rem, 7vw, 4.2rem);
+  color:var(--cream);
+  line-height:1.05;
+}
+[data-theme="osteria"] .events__hero-subtitle{
+  margin-top:0.9rem;
+  font-size:1rem;
+  color:var(--muted);
+}
+[data-theme="osteria"] .events__hero-dates{
+  display:inline-block;
+  margin-top:1.1rem;
+  font-family:var(--ff-mono);
+  font-size:0.72rem;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  background:var(--gold-light);
+  color:#241019;
+  padding:0.4rem 0.7rem;
+  border-radius:999px;
+}
+
+[data-theme="osteria"] .events__list{
+  padding: clamp(2.2rem, 6vw, 3.2rem) clamp(1.25rem, 4vw, 3rem) clamp(3rem, 7vw, 4rem);
+}
+
+[data-theme="osteria"] .events__card{
+  background:var(--bg-card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  box-shadow:none;
+}
+[data-theme="osteria"] .events__card:hover{
+  background:var(--bg-card-hover);
+  border-color:rgba(230,199,119,0.35);
+  transform:translateY(-4px);
+}
+
+[data-theme="osteria"] .events__card-ribbon{
+  background:var(--wine);
+  color:var(--cream);
+  border-radius:0 0 8px 8px;
+  box-shadow:0 6px 14px rgba(0,0,0,0.3);
+}
+[data-theme="osteria"] .events__card-month{ font-family:var(--ff-mono); }
+[data-theme="osteria"] .events__card-day{ font-family:var(--ff-display); }
+
+[data-theme="osteria"] .events__badge{ font-family:var(--ff-mono); border-radius:4px; }
+[data-theme="osteria"] .events__badge--today{ background:var(--gold-light); color:#241019; font-weight:700; }
+[data-theme="osteria"] .events__badge--finished{ border:1px solid var(--line); color:var(--muted); }
+
+[data-theme="osteria"] .events__card-image{ background:var(--bg); border-radius:8px; }
+[data-theme="osteria"] .events__card-image img{ filter:grayscale(0.3) contrast(1.05); }
+[data-theme="osteria"] .events__card:hover .events__card-image img{ filter:grayscale(0) contrast(1); }
+[data-theme="osteria"] .events__card-image--placeholder{ color:var(--gold-light); }
+
+[data-theme="osteria"] .events__card-title{
+  font-family:var(--ff-display);
+  font-weight:600;
+  font-size:1.15rem;
+  color:var(--cream);
+}
+[data-theme="osteria"] .events__card-date{ font-family:var(--ff-mono); color:var(--muted); }
+
+[data-theme="osteria"] .events__empty-title{ font-family:var(--ff-display); font-style:italic; color:var(--cream); }
+[data-theme="osteria"] .events__empty-text{ color:var(--muted); }
+
+[data-theme="osteria"] .events__spinner{
+  border:3px solid var(--line);
+  border-top-color:var(--gold-light);
+}
+
+
+
+
+/* ============================================================
+   RESERVATION — declinazione tema "osteria"
+   ============================================================ */
+.reservation-page[data-theme="osteria"]{
+  --text: var(--cream);
+  --muted: var(--muted);
+  --line: var(--line);
+  --surface-strong: var(--bg-card);
+  --surface-soft: var(--bg-card-hover);
+  --shadow: 0 20px 40px rgba(0,0,0,0.45);
+
+  --radius-xl: 20px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+
+  --green: var(--gold-light);
+  --green-darker: var(--gold);
+  --amber: #c69a3f;
+  --red: var(--wine);
+
+  --booking-accent: var(--gold-light);
+
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(124,33,56,0.35), transparent 60%),
+    var(--bg);
+  color: var(--cream);
+  font-family: var(--ff-body);
+}
+
+.reservation-page[data-theme="osteria"] h1,
+.reservation-page[data-theme="osteria"] h2,
+.reservation-page[data-theme="osteria"] h3{
+  font-family: var(--ff-display);
+}
+
+.reservation-page[data-theme="osteria"] .eyebrow{
+  font-family: var(--ff-mono);
+}
+
+.reservation-page[data-theme="osteria"] .hero-card,
+.reservation-page[data-theme="osteria"] .booking-card,
+.reservation-page[data-theme="osteria"] .summary-card,
+.reservation-page[data-theme="osteria"] .restaurant-info-card,
+.reservation-page[data-theme="osteria"] .order-card{
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--line);
+}
+
+.reservation-page[data-theme="osteria"] .primary-button,
+.reservation-page[data-theme="osteria"] .confirm-reservation,
+.reservation-page[data-theme="osteria"] .action-btn.primary,
+.reservation-page[data-theme="osteria"] .order-card-toggle{
+  background: var(--gold-light);
+  color: #241019;
+  border-radius: 999px;
+}
+.reservation-page[data-theme="osteria"] .primary-button:hover,
+.reservation-page[data-theme="osteria"] .confirm-reservation:hover{
+  box-shadow: 0 10px 20px rgba(0,0,0,0.35);
+}
+
+.reservation-page[data-theme="osteria"] .ghost-button,
+.reservation-page[data-theme="osteria"] .calendar-nav-button{
+  background: var(--wine);
+  color: var(--muted);
+  border: 1px solid var(--line);
+}
+.reservation-page[data-theme="osteria"] .ghost-button:hover,
+.reservation-page[data-theme="osteria"] .calendar-nav-button:hover{
+  color: var(--cream);
+  border-color: rgba(230,199,119,0.35);
+}
+
+.reservation-page[data-theme="osteria"] .danger-button{
+  background: rgba(124,33,56,0.15);
+  border-color: rgba(124,33,56,0.4);
+  color: #e6a3ac;
+}
+
+.reservation-page[data-theme="osteria"] .calendar-day,
+.reservation-page[data-theme="osteria"] .calendar-empty,
+.reservation-page[data-theme="osteria"] .calendar-shell,
+.reservation-page[data-theme="osteria"] .selected-day-banner,
+.reservation-page[data-theme="osteria"] .summary-base-card,
+.reservation-page[data-theme="osteria"] .contact-box,
+.reservation-page[data-theme="osteria"] .form-grid input,
+.reservation-page[data-theme="osteria"] .form-grid select,
+.reservation-page[data-theme="osteria"] .notes-field textarea{
+  background: var(--bg-card);
+  border-color: var(--line);
+  color: var(--cream);
+}
+
+.reservation-page[data-theme="osteria"] .form-grid input:focus,
+.reservation-page[data-theme="osteria"] .form-grid select:focus,
+.reservation-page[data-theme="osteria"] .notes-field textarea:focus{
+  border-color: var(--gold-light);
+  box-shadow: 0 0 0 3px rgba(230,199,119,0.15);
+}
+
+.reservation-page[data-theme="osteria"] .step-pill.active{
+  background: var(--gold-light);
+  color: #241019;
+}
+.reservation-page[data-theme="osteria"] .step-pill.done{
+  color: var(--gold-light);
+  border-color: rgba(230,199,119,0.4);
+}
+
+.reservation-page[data-theme="osteria"] .contact-box a{
+  color: var(--gold-light);
+}
+/* ============================================================
+   CALENDARIO + MODAL — colori tema "osteria"
+   ============================================================ */
+.reservation-page[data-theme="osteria"] .calendar-shell,
+.reservation-page[data-theme="osteria"] .calendar-legend,
+.reservation-page[data-theme="osteria"] .calendar-footnote{
+  background: var(--bg-card);
+  border-color: var(--line);
+}
+.reservation-page[data-theme="osteria"] .calendar-tip{
+  background: rgba(230,199,119,0.1);
+  border-color: rgba(230,199,119,0.35);
+  color: var(--cream);
+}
+.reservation-page[data-theme="osteria"] .weekday-row span{ color: var(--muted); }
+.reservation-page[data-theme="osteria"] .calendar-day{
+  background: var(--bg-card-hover);
+  color: var(--cream);
+}
+.reservation-page[data-theme="osteria"] .calendar-day.today{
+  box-shadow: inset 0 0 0 2px var(--gold-light);
+}
+.reservation-page[data-theme="osteria"] .calendar-day.selected{
+  border-color: var(--gold-light);
+}
+.reservation-page[data-theme="osteria"] .status-green{ background: rgba(114,143,109,0.12); }
+.reservation-page[data-theme="osteria"] .status-medium{ background: rgba(198,154,63,0.14); }
+.reservation-page[data-theme="osteria"] .status-hot{ background: rgba(198,154,63,0.22); }
+.reservation-page[data-theme="osteria"] .status-full{ background: rgba(124,33,56,0.18); }
+.reservation-page[data-theme="osteria"] .status-dot-green{ background: var(--leaf); }
+.reservation-page[data-theme="osteria"] .status-dot-amber,
+.reservation-page[data-theme="osteria"] .status-dot-medium,
+.reservation-page[data-theme="osteria"] .status-dot-hot{ background: var(--gold); }
+.reservation-page[data-theme="osteria"] .status-dot-red,
+.reservation-page[data-theme="osteria"] .status-dot-full{ background: var(--wine); }
+
+.reservation-page[data-theme="osteria"] .modal-sheet{
+  background: var(--bg-card);
+  border-color: var(--line);
+  color: var(--cream);
+}
+.reservation-page[data-theme="osteria"] .modal-message{ color: var(--muted); }
+.reservation-page[data-theme="osteria"] .modal-icon-default{ background: rgba(230,199,119,0.15); color: var(--gold-light); }
+.reservation-page[data-theme="osteria"] .modal-icon-danger{ background: rgba(124,33,56,0.2); color: #e6a3ac; }
+.reservation-page[data-theme="osteria"] .modal-close{ color: var(--muted); }
+.reservation-page[data-theme="osteria"] .modal-close:hover{ background: rgba(255,255,255,0.06); color: var(--cream); }

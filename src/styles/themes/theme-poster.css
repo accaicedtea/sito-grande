@@ -1,0 +1,694 @@
+/* ============================================================
+   TEMA "POSTER" — manifesto grafico piatto anni '60, chiaro,
+   un colore diverso per categoria, elenco a puntini di conduzione.
+   Il colore per categoria arriva da --cat-accent, impostato
+   inline dal componente (Menu.vue) su ogni .menu__category.
+   ============================================================ */
+[data-theme="poster"] {
+  --paper: #f7f3ec;
+  --paper-dark: #d4d2ca;
+  --ink: #17130f;
+  --ink-70: rgba(23, 19, 15, 0.7);
+  --ink-45: rgba(23, 19, 15, 0.45);
+  --rule: rgba(23, 19, 15, 0.16);
+  --ff-display: "Bebas Neue", sans-serif;
+  --ff-body: "Work Sans", sans-serif;
+  --ff-mono: "IBM Plex Mono", monospace;
+
+  color: var(--ink);
+  font-family: var(--ff-body);
+}
+
+[data-theme="poster"].menu {
+  background: var(--paper);
+}
+
+/* HERO */
+[data-theme="poster"] .menu__hero {
+  padding: clamp(2.6rem, 7vw, 4.2rem) clamp(1.25rem, 5vw, 3rem) clamp(1.6rem, 4vw, 2.2rem);
+  border-bottom: 3px solid var(--ink);
+  text-align: left;
+}
+
+[data-theme="poster"] .menu__kicker {
+  display: block;
+  font-family: var(--ff-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink-70);
+  margin-bottom: 0.6rem;
+}
+
+[data-theme="poster"] .menu__title-main {
+  display: block;
+  font-family: var(--ff-display);
+  font-size: clamp(4.5rem, 16vw, 9.5rem);
+  line-height: 0.82;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+[data-theme="poster"] .menu__title-sub {
+  display: none;
+}
+
+/* il poster non usa la riga secondaria del titolo */
+[data-theme="poster"] .menu__subtitle {
+  margin-top: 0.7rem;
+  max-width: 32rem;
+  font-size: 0.98rem;
+  color: var(--ink-70);
+}
+
+[data-theme="poster"] .menu__theme-switcher {
+  color: var(--ink);
+  justify-content: flex-start;
+  padding-left: clamp(1.25rem, 5vw, 3rem);
+}
+
+[data-theme="poster"] .menu__theme-btn.is-active {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* NAV */
+[data-theme="poster"] .menu__nav {
+  background: var(--paper);
+  border-bottom: 3px solid var(--ink);
+  padding: 0.9rem clamp(1.25rem, 5vw, 3rem);
+}
+
+[data-theme="poster"] .menu__nav-btn {
+  padding: 0.5rem 1rem;
+  font-family: var(--ff-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--paper);
+  color: var(--nav-color, var(--ink));
+  border: 2px solid var(--nav-color, var(--ink));
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+[data-theme="poster"] .menu__nav-btn:hover {
+  background: rgba(23, 19, 15, 0.05);
+}
+
+[data-theme="poster"] .menu__nav-btn.is-active {
+  background: var(--nav-color, var(--ink));
+  color: var(--paper);
+}
+
+/* STATO */
+[data-theme="poster"] .menu__state {
+  padding: 4rem 0;
+  color: var(--ink-70);
+}
+
+/* CATEGORIA — banda colore pieno */
+[data-theme="poster"] .menu__main {
+  max-width: 840px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 5vw, 3rem);
+}
+
+[data-theme="poster"] .menu__category {
+  padding-top: clamp(2.4rem, 6vw, 3.4rem);
+}
+
+[data-theme="poster"] .menu__category-head {
+  background: var(--cat-accent, var(--ink));
+  color: var(--paper);
+  padding: 0.9rem 1.2rem;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+}
+
+[data-theme="poster"] .menu__category-title {
+  font-family: var(--ff-display);
+  font-size: clamp(2rem, 6vw, 2.9rem);
+  letter-spacing: 0.01em;
+  line-height: 1;
+}
+
+[data-theme="poster"] .menu__category-meta {
+  font-family: var(--ff-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+/* ELENCO A RIGHE */
+[data-theme="poster"] .menu__items {
+  padding: 0.6rem 0 0.4rem;
+}
+
+[data-theme="poster"] .menu__item {
+  padding: 1.05rem 0.1rem;
+  border-bottom: 1px solid var(--rule);
+  opacity: 0;
+  animation: poster-rise 0.5s ease forwards;
+}
+
+@keyframes poster-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+[data-theme="poster"] .menu__item-row {
+  gap: 0.6rem;
+}
+
+[data-theme="poster"] .menu__item-name {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+[data-theme="poster"] .menu__item-badge {
+  font-family: var(--ff-mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: var(--paper);
+  background: var(--cat-accent, var(--ink));
+  padding: 0.15rem 0.4rem;
+  margin-right: 0.5rem;
+  transform: translateY(-1px);
+}
+
+[data-theme="poster"] .menu__item-leader {
+  display: block;
+  border-bottom: 2px dotted var(--ink-45);
+  transform: translateY(-4px);
+}
+
+[data-theme="poster"] .menu__item-price {
+  font-family: var(--ff-mono);
+  font-weight: 700;
+  font-size: 1.05rem;
+  white-space: nowrap;
+  color: var(--cat-accent, var(--ink));
+}
+
+[data-theme="poster"] .menu__item-desc {
+  margin-top: 0.35rem;
+  font-size: 0.88rem;
+  color: var(--ink-70);
+  max-width: 38rem;
+}
+
+[data-theme="poster"] .menu__item-tags {
+  margin-top: 0.6rem;
+}
+
+[data-theme="poster"] .menu__tag {
+  font-family: var(--ff-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border: 1.5px solid var(--cat-accent, var(--ink));
+  color: var(--cat-accent, var(--ink));
+  padding: 0.16rem 0.45rem;
+}
+
+[data-theme="poster"] .menu__tag--spicy {
+  color: #b23b1f;
+  border-color: #b23b1f;
+}
+
+[data-theme="poster"] .menu__allergen{
+  font-family: var(--ff-mono);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #17130f;
+  background: #f4c430;
+  border: 1.5px solid #17130f;
+  padding: 0.15rem 0.45rem;
+  box-shadow: 2px 2px 0 #17130f;
+}
+
+[data-theme="poster"] .menu__allergens-label{
+  font-family: var(--ff-mono);
+  color: var(--ink-45);
+  font-weight: 600;
+}
+
+
+[data-theme="poster"] .menu__item-note {
+  font-size: 0.75rem;
+  font-style: italic;
+  color: var(--ink-45);
+}
+
+/* FOOTER */
+[data-theme="poster"] .menu__footer {
+  margin-top: 2.6rem;
+  padding: 2.4rem clamp(1.25rem, 5vw, 3rem) 2.8rem;
+  border-top: 3px solid var(--ink);
+}
+
+[data-theme="poster"] .menu__footer-mark {
+  display: none;
+}
+
+/* il poster non ripete il nome, l'ha già in testata */
+[data-theme="poster"] .menu__footer-grid {
+  max-width: 840px;
+  margin: 0 auto;
+  font-size: 0.88rem;
+}
+
+[data-theme="poster"] .menu__footer-label {
+  font-family: var(--ff-mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+  margin-bottom: 0.25rem;
+}
+
+[data-theme="poster"] .menu__footer-note {
+  max-width: 840px;
+  margin: 1.6rem auto 0;
+  font-family: var(--ff-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-45);
+  text-align: center;
+}
+
+/* ============================================================
+   FRAMEWORK GRAFICO — declinazione tema "poster"
+   ============================================================ */
+
+/* Bottoni */
+[data-theme="poster"] .gfx-btn--primary {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+[data-theme="poster"] .gfx-btn--primary:hover {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+[data-theme="poster"] .gfx-btn--outline {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--ink);
+}
+
+[data-theme="poster"] .gfx-btn--outline:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+[data-theme="poster"] .gfx-btn--ghost {
+  background: transparent;
+  color: var(--ink-70);
+  border-color: transparent;
+}
+
+[data-theme="poster"] .gfx-btn--ghost:hover {
+  color: var(--ink);
+}
+
+/* Card — blocco piatto con barra colore in testa */
+[data-theme="poster"] .gfx-card {
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  padding-top: 1.8rem;
+}
+
+[data-theme="poster"] .gfx-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 0.5rem;
+  background: var(--gfx-accent, var(--ink));
+}
+
+[data-theme="poster"] .gfx-card__title {
+  font-size: 1.4rem;
+  letter-spacing: 0.01em;
+}
+
+[data-theme="poster"] .gfx-card__body {
+  color: var(--ink-70);
+  font-size: 0.9rem;
+}
+
+/* Navbar */
+[data-theme="poster"].gfx-navbar,
+[data-theme="poster"] .gfx-navbar {
+  background: var(--paper);
+  border-bottom: 3px solid var(--ink);
+  color: var(--ink);
+}
+
+[data-theme="poster"] .gfx-navbar__panel {
+  background: var(--paper-dark);
+}
+
+[data-theme="poster"] .gfx-navbar__brand {
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+}
+
+[data-theme="poster"] .gfx-navbar__link {
+  color: var(--ink-70);
+}
+
+[data-theme="poster"] .gfx-navbar__link:hover,
+[data-theme="poster"] .gfx-navbar__link.is-active {
+  color: var(--ink);
+}
+
+[data-theme="poster"] .gfx-navbar__link.is-active {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.3rem 0.6rem;
+}
+
+/* FOOTER */
+[data-theme="poster"].footer {
+  padding: 2.4rem clamp(1.25rem, 5vw, 3rem) 2.8rem;
+  border-top: 3px solid var(--ink);
+  background: var(--paper);
+}
+
+[data-theme="poster"].footer .footer__stub {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+[data-theme="poster"].footer .footer__grid {
+  color: var(--ink-70);
+}
+
+[data-theme="poster"].footer .footer__label {
+  color: var(--ink-45);
+}
+
+[data-theme="poster"].footer .footer__note {
+  color: var(--ink-45);
+}
+
+
+[data-theme="poster"] .menu__whatsnew{
+  border-bottom:3px solid var(--ink);
+  padding-bottom:1.6rem;
+}
+[data-theme="poster"] .menu__whatsnew-title{
+  font-family:var(--ff-display);
+  font-size:1.4rem;
+  color:var(--ink);
+}
+[data-theme="poster"] .menu__whatsnew-item{
+  background:var(--paper);
+  border:2px solid var(--ink);
+}
+[data-theme="poster"] .menu__whatsnew-price{
+  font-family:var(--ff-mono);
+  font-weight:700;
+  color:var(--ink);
+}
+
+[data-theme="poster"] .menu__allergen-key{
+  background:var(--paper);
+  border:2px solid var(--ink);
+    border-style: solid;
+border-width: 1px 0;
+border-color: #000;
+}
+[data-theme="poster"] .menu__allergen-key-title{
+  margin-left: 10px;
+  font-family:var(--ff-display);
+  color:var(--ink);
+}
+[data-theme="poster"] .menu__allergen-key-item{
+  background:var(--paper);
+  color:var(--ink);
+  border:1.5px solid var(--ink);
+}
+[data-theme="poster"] .menu__allergen-key-item:hover{
+  background:rgba(23,19,15,0.05);
+}
+[data-theme="poster"] .menu__allergen-key-icon{ color:var(--ink); }
+
+
+
+
+.events[data-theme="poster"]{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--ff-body);
+  min-height:100vh;
+}
+
+[data-theme="poster"] .events__hero{
+  padding: clamp(1rem, 1vw, 4.2rem) clamp(1.25rem, 5vw, 3rem) clamp(1.6rem, 4vw, 2.2rem);
+  border-bottom:3px solid var(--ink);
+}
+[data-theme="poster"] .events__hero-title{
+  font-family:var(--ff-display);
+  font-size:clamp(3rem, 10vw, 6rem);
+  line-height:0.9;
+  color:var(--ink);
+}
+[data-theme="poster"] .events__hero-subtitle{ margin-top:0.7rem; color:var(--ink-70); }
+[data-theme="poster"] .events__hero-dates{
+  display:inline-block;
+  margin-top:1rem;
+  font-family:var(--ff-mono);
+  font-size:0.72rem;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  background:var(--ink);
+  color:var(--paper);
+  padding:0.35rem 0.6rem;
+}
+
+[data-theme="poster"] .events__list{
+  padding: clamp(2rem, 5vw, 3rem) clamp(1.25rem, 5vw, 3rem) clamp(2.6rem, 6vw, 3.4rem);
+}
+
+[data-theme="poster"] .events__card{
+  background:var(--paper);
+  border:2px solid var(--ink);
+}
+[data-theme="poster"] .events__card:hover{ background:rgba(23,19,15,0.04); }
+
+[data-theme="poster"] .events__card-ribbon{ background:var(--ink); color:var(--paper); }
+[data-theme="poster"] .events__card-month{ font-family:var(--ff-mono); }
+[data-theme="poster"] .events__card-day{ font-family:var(--ff-display); }
+
+[data-theme="poster"] .events__badge{ font-family:var(--ff-mono); border:1.5px solid var(--ink); }
+[data-theme="poster"] .events__badge--today{ background:var(--ink); color:var(--paper); }
+[data-theme="poster"] .events__badge--finished{ color:var(--ink-45); border-color:var(--ink-45); border-style:dashed; }
+
+[data-theme="poster"] .events__card-image{ background:var(--ink); }
+[data-theme="poster"] .events__card-image--placeholder{ color:var(--paper); }
+
+[data-theme="poster"] .events__card-title{ font-family:var(--ff-display); font-size:1.3rem; color:var(--ink); }
+[data-theme="poster"] .events__card-date{ font-family:var(--ff-mono); color:var(--ink-70); }
+
+[data-theme="poster"] .events__empty-title{ font-family:var(--ff-display); color:var(--ink); }
+[data-theme="poster"] .events__empty-text{ color:var(--ink-70); }
+
+[data-theme="poster"] .events__spinner{
+  border:3px solid var(--rule);
+  border-top-color:var(--ink);
+}
+
+
+
+
+
+/* ============================================================
+   RESERVATION — declinazione tema "poster"
+   ============================================================ */
+.reservation-page[data-theme="poster"]{
+  --text: var(--ink);
+  --muted: var(--ink-70);
+  --line: var(--rule);
+  --surface-strong: var(--paper);
+  --surface-soft: rgba(23,19,15,0.04);
+  --shadow: none;
+
+  --radius-xl: 0px;
+  --radius-lg: 0px;
+  --radius-md: 0px;
+  --radius-sm: 0px;
+
+  --green: var(--ink);
+  --green-darker: var(--ink);
+  --amber: #e8a33d;
+  --red: #b23b1f;
+
+  --booking-accent: var(--ink);
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--ff-body);
+}
+
+.reservation-page[data-theme="poster"] h1,
+.reservation-page[data-theme="poster"] h2,
+.reservation-page[data-theme="poster"] h3{
+  font-family: var(--ff-display);
+  letter-spacing: 0.01em;
+}
+
+.reservation-page[data-theme="poster"] .eyebrow{
+  font-family: var(--ff-mono);
+}
+
+.reservation-page[data-theme="poster"] .hero-card,
+.reservation-page[data-theme="poster"] .booking-card,
+.reservation-page[data-theme="poster"] .summary-card,
+.reservation-page[data-theme="poster"] .restaurant-info-card,
+.reservation-page[data-theme="poster"] .order-card{
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper);
+  box-shadow: none;
+}
+
+.reservation-page[data-theme="poster"] .primary-button,
+.reservation-page[data-theme="poster"] .confirm-reservation,
+.reservation-page[data-theme="poster"] .action-btn.primary,
+.reservation-page[data-theme="poster"] .order-card-toggle{
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 0;
+}
+.reservation-page[data-theme="poster"] .primary-button:hover,
+.reservation-page[data-theme="poster"] .confirm-reservation:hover{
+  background: var(--paper);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+
+.reservation-page[data-theme="poster"] .ghost-button,
+.reservation-page[data-theme="poster"] .calendar-nav-button{
+  background: var(--paper);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+}
+.reservation-page[data-theme="poster"] .ghost-button:hover,
+.reservation-page[data-theme="poster"] .calendar-nav-button:hover{
+  background: rgba(23,19,15,0.06);
+}
+
+.reservation-page[data-theme="poster"] .danger-button{
+  background: var(--paper);
+  border: 2px solid #b23b1f;
+  color: #b23b1f;
+  border-radius: 0;
+}
+
+.reservation-page[data-theme="poster"] .calendar-day,
+.reservation-page[data-theme="poster"] .calendar-empty,
+.reservation-page[data-theme="poster"] .calendar-shell,
+.reservation-page[data-theme="poster"] .selected-day-banner,
+.reservation-page[data-theme="poster"] .summary-base-card,
+.reservation-page[data-theme="poster"] .contact-box,
+.reservation-page[data-theme="poster"] .form-grid input,
+.reservation-page[data-theme="poster"] .form-grid select,
+.reservation-page[data-theme="poster"] .notes-field textarea{
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 0;
+  color: var(--ink);
+}
+
+.reservation-page[data-theme="poster"] .form-grid input:focus,
+.reservation-page[data-theme="poster"] .form-grid select:focus,
+.reservation-page[data-theme="poster"] .notes-field textarea:focus{
+  border-color: var(--ink);
+  box-shadow: 0 0 0 3px rgba(23,19,15,0.1);
+}
+
+.reservation-page[data-theme="poster"] .step-pill{
+  border-radius: 0;
+  border: 1.5px solid var(--ink);
+}
+.reservation-page[data-theme="poster"] .step-pill.active{
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.reservation-page[data-theme="poster"] .contact-box a{
+  color: var(--ink);
+}
+/* ============================================================
+   CALENDARIO + MODAL — colori tema "poster"
+   ============================================================ */
+.reservation-page[data-theme="poster"] .calendar-shell,
+.reservation-page[data-theme="poster"] .calendar-legend,
+.reservation-page[data-theme="poster"] .calendar-footnote{
+  background: var(--paper);
+  border-color: var(--ink);
+  border-width: 1.5px;
+}
+.reservation-page[data-theme="poster"] .calendar-tip{
+  background: rgba(23,19,15,0.05);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+.reservation-page[data-theme="poster"] .weekday-row span{ color: var(--ink-70); }
+.reservation-page[data-theme="poster"] .calendar-day{
+  background: var(--paper);
+  border: 1.5px solid var(--ink);
+  border-radius: 0;
+  color: var(--ink);
+}
+.reservation-page[data-theme="poster"] .calendar-day.today{
+  box-shadow: inset 0 0 0 2px var(--ink);
+}
+.reservation-page[data-theme="poster"] .calendar-day.selected{
+  background: rgba(23,19,15,0.06);
+}
+.reservation-page[data-theme="poster"] .status-green{ background: rgba(23,19,15,0.03); }
+.reservation-page[data-theme="poster"] .status-medium{ background: rgba(232,163,61,0.14); }
+.reservation-page[data-theme="poster"] .status-hot{ background: rgba(232,163,61,0.22); }
+.reservation-page[data-theme="poster"] .status-full{ background: rgba(178,59,31,0.14); }
+.reservation-page[data-theme="poster"] .status-dot-green{ background: var(--ink); }
+.reservation-page[data-theme="poster"] .status-dot-amber,
+.reservation-page[data-theme="poster"] .status-dot-medium,
+.reservation-page[data-theme="poster"] .status-dot-hot{ background: #e8a33d; }
+.reservation-page[data-theme="poster"] .status-dot-red,
+.reservation-page[data-theme="poster"] .status-dot-full{ background: #b23b1f; }
+
+.reservation-page[data-theme="poster"] .modal-sheet{
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-radius: 0;
+  color: var(--ink);
+}
+.reservation-page[data-theme="poster"] .modal-message{ color: var(--ink-70); }
+.reservation-page[data-theme="poster"] .modal-icon{ border-radius: 0; }
+.reservation-page[data-theme="poster"] .modal-icon-default{ background: var(--paper); border: 1.5px solid var(--ink); color: var(--ink); }
+.reservation-page[data-theme="poster"] .modal-icon-danger{ background: var(--paper); border: 1.5px solid #b23b1f; color: #b23b1f; }
+.reservation-page[data-theme="poster"] .modal-close{ color: var(--ink-70); }
+.reservation-page[data-theme="poster"] .modal-close:hover{ background: rgba(23,19,15,0.06); color: var(--ink); }
