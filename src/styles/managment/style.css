@@ -1782,3 +1782,42 @@
         display: none;
     }
 }
+/* ── PAGE CONTAINERS ──────────────────────────────────────────
+   Classi usate dalle singole view (page-sm/md/lg) per centrare il
+   contenuto sotto l'header gestionale. Mancavano dal foglio di stile
+   originale: le view le referenziavano ma non producevano alcun
+   effetto. ".shell" è un alias di ".management-shell" per la vecchia
+   dashboard che usava un nome di classe diverso. */
+.shell {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+}
+
+.page-sm,
+.page-md,
+.page-lg {
+    width: 100%;
+    margin: 0 auto;
+    padding: 24px 20px 48px;
+}
+
+.page-sm {
+    max-width: 760px;
+}
+
+.page-md {
+    max-width: 1180px;
+}
+
+.page-lg {
+    max-width: 1480px;
+}
+
+@media (max-width: 640px) {
+    .page-sm,
+    .page-md,
+    .page-lg {
+        padding: 16px 14px 32px;
+    }
+}

@@ -1,8 +1,8 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router'
 
-import PublicLayout from '../layout/PublicLayout.vue'
-import PrivateLayout from '../layout/PrivateLayout.vue'
+const PublicLayout = () => import(/* webpackChunkName: "public-layout" */ '../layout/PublicLayout.vue')
+const PrivateLayout = () => import(/* webpackChunkName: "private-layout" */ '../layout/PrivateLayout.vue')
 
 const routes = [
   {
@@ -21,7 +21,6 @@ const routes = [
         component: () => import(/* webpackChunkName: "menu" */ '../site/menu/MenuA.vue'),
         meta: { title: 'Menu' }
       },
-
       {
         path: 'eventi',
         name: 'eventi',
@@ -32,32 +31,88 @@ const routes = [
         path: 'prenotazioni',
         name: 'prenota',
         component: () => import(/* webpackChunkName: "prenota" */ '../site/booking/ReservationView.vue'),
-
+        meta: { title: 'Prenota' }
+      },
+      {
+        path: 'contatti',
+        name: 'contatti',
+        component: () => import('../site/public/ContactView.vue'),
+        meta: {title: 'Contatti'}
       }
     ]
   },
   {
-    path: '/',
+      path: '/servi',
+      children: [
+        {
+          path: 'ordini',
+          name: 'ordini',
+          component: () => import('../site/serve/OrdiniView.vue'),
+          meta: { title: 'Gestione ordinazioni'}
+        }
+      ]
+  },
+  {
+    // Tutta l'area gestionale vive sotto /gestione: il layout privato,
+    // il suo header/nav e ogni sotto-sezione condividono lo stesso prefisso
+    // usato già dai link nei componenti (RouterLink a "/gestione",
+    // "/gestione/menu", "/gestione/prenotazioni", ecc.).
+    path: '/gestione',
     component: PrivateLayout,
     children: [
       {
-        path: '/accamanagment/login',
+        path: 'login',
         name: 'login',
         component: () => import(/* webpackChunkName: "login" */ '../site/managment/LoginView.vue'),
         meta: { title: 'Accedi', guest: true }
-      }
-    ]
-  },
-  {
-    path: '/dashboard',
-    component: PrivateLayout,
-    meta: { requiresAuth: true },
-    children: [
+      },
       {
         path: '',
         name: 'dashboard',
         component: () => import(/* webpackChunkName: "dashboard" */ '../site/managment/DashboardView.vue'),
-        meta: { title: 'Dashboard' }
+        meta: { title: 'Dashboard', requiresAuth: true }
+      },
+      {
+        path: 'prodotti',
+        name: 'prodotti',
+        component: () => import(/* webpackChunkName: "prodotti" */ '../site/managment/ProductsView.vue'),
+        meta: { title: 'Prodotti', requiresAuth: true }
+      },
+      {
+        path: 'categorie',
+        name: 'categorie',
+        component: () => import(/* webpackChunkName: "categorie" */ '../site/managment/CategoriesView.vue'),
+        meta: { title: 'Categorie', requiresAuth: true }
+      },
+      {
+        path: 'ingredienti',
+        name: 'ingredienti',
+        component: () => import(/* webpackChunkName: "ingredienti" */ '../site/managment/IngredientsView.vue'),
+        meta: { title: 'Ingredienti', requiresAuth: true }
+      },
+      {
+        path: 'menu',
+        name: 'gestione-menu',
+        component: () => import(/* webpackChunkName: "gestione-menu" */ '../site/managment/MenuView.vue'),
+        meta: { title: 'Gestione menu', requiresAuth: true }
+      },
+      {
+        path: 'eventi',
+        name: 'gestione-eventi',
+        component: () => import(/* webpackChunkName: "gestione-eventi" */ '../site/managment/EventsView.vue'),
+        meta: { title: 'Gestione eventi', requiresAuth: true }
+      },
+      {
+        path: 'prenotazioni',
+        name: 'gestione-prenotazioni',
+        component: () => import(/* webpackChunkName: "gestione-prenotazioni" */ '../site/managment/ReservationsView.vue'),
+        meta: { title: 'Gestione prenotazioni', requiresAuth: true }
+      },
+      {
+        path: 'promozioni',
+        name: 'promozioni',
+        component: () => import(/* webpackChunkName: "promozioni" */ '../site/managment/PromotionsView.vue'),
+        meta: { title: 'Promozioni', requiresAuth: true }
       }
     ]
   },
@@ -84,35 +139,31 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   document.title = to.meta.title ? `Osteria | ${to.meta.title}` : 'Osteria'
 
-  const isAuthenticated = localStorage.getItem('token')
+  // Stessa chiave usata da LoginView per salvare il token e da
+  // PrivateLayout per rimuoverlo al logout.
+  const isAuthenticated = !!localStorage.getItem('admin_token')
 
   if (to.meta.requiresAuth && !isAuthenticated) {
-    // Reindirizza al login con il path originale in query
     return { name: 'login', query: { redirect: to.fullPath } }
   }
-  if (to.meta.guest && isAuthenticated) {
-    // Se già autenticato, vai alla dashboard
+  if (to.meta.guest && isAuthenticated && to.name === 'login') {
     return { name: 'dashboard' }
   }
-  // Consenti la navigazione
   return true
 })
 
 // Prefetch dei chunk delle pagine pubbliche principali nei momenti di
 // inattività del browser, in modo che quando l'utente clicca su un link
 // il JS della pagina sia già scaricato e la navigazione risulti istantanea.
-// Non blocca nulla: parte solo dopo che la navigazione iniziale è completa
-// e solo quando il browser non ha altro da fare.
 function prefetchPublicRoutes() {
   const loaders = [
+    () => import('../layout/PublicLayout.vue'),
     () => import('../site/menu/MenuA.vue'),
     () => import('../site/events/EventsView.vue'),
     () => import('../site/booking/ReservationView.vue'),
   ]
 
   loaders.forEach((load) => {
-    // Ogni import viene lanciato singolarmente per non saturare la rete
-    // tutto in una volta; se uno fallisce (es. offline) non blocca gli altri.
     load().catch(() => {})
   })
 }
@@ -121,7 +172,6 @@ router.isReady().then(() => {
   if ('requestIdleCallback' in window) {
     requestIdleCallback(prefetchPublicRoutes, { timeout: 3000 })
   } else {
-    // Fallback per browser senza requestIdleCallback (es. Safari)
     setTimeout(prefetchPublicRoutes, 1500)
   }
 })

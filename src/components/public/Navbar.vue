@@ -70,7 +70,7 @@ const props = defineProps({
     ]),
   },
   ctaLabel: { type: String, default: 'Prenota' },
-  ctaHref: { type: String, default: '/prenota' },
+  ctaHref: { type: String, default: '/prenotazioni' },
   currentPath: { type: String, default: '' },
   showThemeSwitcher: { type: Boolean, default: true },
 })

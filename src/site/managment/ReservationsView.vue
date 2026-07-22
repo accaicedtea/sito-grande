@@ -24,8 +24,8 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'
-import { useSystemReservation } from '../../composables/useSystemReservation.js'
-import { useBooking } from '../../composables/useBooking.js'
+import { useSystemReservation } from '../../shared/booking/useSystemReservation.js'
+import { useBooking } from '../../shared/booking/useBooking.js'
 
 const router = useRouter()
 const msg = ref('')

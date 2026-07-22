@@ -1,5 +1,5 @@
 <template>
-  <div class="shell page-lg">
+  <div class="management-shell page-lg">
     <div class="page-header">
       <div>
         <small class="page-eyebrow">Panoramica</small>
