@@ -18,7 +18,8 @@ import '../styles/themes/base.css'
 import '../styles/themes/theme-osteria.css'
 import '../styles/themes/theme-poster.css'
 import '../styles/themes/theme-rock.css'
-
+import '../styles/themes/theme-serra.css'
+import '../styles/themes/theme-riviera.css'
 </script>
 
 

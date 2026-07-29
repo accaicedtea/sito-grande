@@ -9,4 +9,6 @@ export const themes = [
   { id: 'osteria', label: 'Osteria' },
   { id: 'poster', label: 'Poster' },
   { id: 'rock', label: 'Rock' },
+  { id: 'serra', label: 'Serra'},
+  { id: 'riviera', label: 'Riviera'},
 ]

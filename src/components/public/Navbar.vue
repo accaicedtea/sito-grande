@@ -64,6 +64,7 @@ const props = defineProps({
   links: {
     type: Array,
     default: () => ([
+      { label: 'Home', href: '/'},
       { label: 'Menu', href: '/menu' },
       { label: 'Eventi', href: '/eventi' },
       { label: 'Contatti', href: '/contatti' },

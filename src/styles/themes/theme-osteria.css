@@ -660,6 +660,16 @@ border-color: #000;
   font-family: var(--ff-body);
 }
 
+.reservation-page[data-theme="osteria"] .calendar-day.is-past{
+  background: rgba(80,75,70,0.25);
+  color: rgba(179,154,141,0.55);
+  filter: grayscale(0.7);
+}
+.reservation-page[data-theme="osteria"] .calendar-day.status-green:not(.is-past){
+  border-color: var(--leaf);
+  box-shadow: inset 0 0 0 1.5px var(--leaf);
+}
+
 .reservation-page[data-theme="osteria"] h1,
 .reservation-page[data-theme="osteria"] h2,
 .reservation-page[data-theme="osteria"] h3{

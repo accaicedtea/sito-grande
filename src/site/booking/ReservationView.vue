@@ -136,7 +136,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <main class="reservation-page" :data-theme="theme">
+  <main class="reservation-page mt-3 mb-3" :data-theme="theme">
     <template v-if="activeReservation && !isEditingSystemReservation">
       <section class="confirmed-page">
         <ReservationConfirm

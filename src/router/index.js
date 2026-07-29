@@ -37,20 +37,20 @@ const routes = [
         path: 'contatti',
         name: 'contatti',
         component: () => import('../site/public/ContactView.vue'),
-        meta: {title: 'Contatti'}
+        meta: { title: 'Contatti' }
       }
     ]
   },
   {
-      path: '/servi',
-      children: [
-        {
-          path: 'ordini',
-          name: 'ordini',
-          component: () => import('../site/serve/OrdiniView.vue'),
-          meta: { title: 'Gestione ordinazioni'}
-        }
-      ]
+    path: '/servi',
+    children: [
+      {
+        path: 'ordini',
+        name: 'ordini',
+        component: () => import('../site/serve/OrdiniView.vue'),
+        meta: { title: 'Gestione ordinazioni' }
+      }
+    ]
   },
   {
     // Tutta l'area gestionale vive sotto /gestione: il layout privato,
@@ -113,6 +113,12 @@ const routes = [
         name: 'promozioni',
         component: () => import(/* webpackChunkName: "promozioni" */ '../site/managment/PromotionsView.vue'),
         meta: { title: 'Promozioni', requiresAuth: true }
+      },
+      {
+        path: 'profilo',
+        name: 'profilo',
+        component: () => import(/* webpackChunkName: "promozioni" */ '../site/managment/ProfileView.vue'),
+        meta: { title: 'Profile', requiresAuth: true }
       }
     ]
   },
@@ -164,7 +170,7 @@ function prefetchPublicRoutes() {
   ]
 
   loaders.forEach((load) => {
-    load().catch(() => {})
+    load().catch(() => { })
   })
 }
 

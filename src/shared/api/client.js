@@ -36,10 +36,25 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
+      // Non facciamo più un redirect "duro" e incondizionato qui.
+      // Motivi:
+      // 1) window.location.href forza una ricarica completa della pagina,
+      //    che interrompe eventuali import() dinamici di Vite ancora in
+      //    corso (da cui gli errori "Caricamento non riuscito per il
+      //    modulo" su chunk come PublicLayout, MenuA, EventsView, ecc.).
+      // 2) La rotta corretta dell'area gestionale è "/gestione/login",
+      //    non "/login": redirigere a "/login" finiva sulla 404.
+      // 3) Non tutte le pagine che usano `api` appartengono all'area
+      //    gestionale protetta da "admin_token" (es. OrdiniView usa un
+      //    proprio "booking_access_key" con la sua modale di login
+      //    in-pagina): forzare un redirect globale rompe quel flusso.
+      //
+      // Ora ci limitiamo a ripulire i token scaduti/non validi.
+      // È responsabilità di ogni chiamante (o di un router guard mirato
+      // sull'area /gestione) decidere se e dove reindirizzare l'utente.
       localStorage.removeItem('auth_token')
       localStorage.removeItem('admin_token')
       localStorage.removeItem('user')
-      window.location.href = '/login'
     }
 
     console.error('API Error:', error)

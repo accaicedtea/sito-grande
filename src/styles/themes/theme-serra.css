@@ -1,0 +1,239 @@
+/* ============================================================
+   TEMA "SERRA" — bistrot botanico, verde salvia su crema,
+   bordi morbidi arrotondati, tipografia calda e naturale.
+   ============================================================ */
+[data-theme="serra"]{
+  --bg:            #f6f3ea;
+  --bg-card:       #ffffff;
+  --bg-card-hover: #f0ede2;
+  --sage:          #5f7a5f;
+  --sage-light:    #8ba888;
+  --sage-dark:     #3f5540;
+  --terracotta:    #c17a52;
+  --cream:         #2f2b23;
+  --muted:         #756d5e;
+  --line:          rgba(95, 122, 95, 0.18);
+  --ff-display: "Fraunces", serif;
+  --ff-body: "Sora", sans-serif;
+  --ff-mono: "Space Mono", monospace;
+
+  color: var(--cream);
+  font-family: var(--ff-body);
+}
+
+[data-theme="serra"].menu{
+  background:
+    radial-gradient(ellipse 90% 60% at 50% 0%, rgba(139,168,136,0.18), transparent 60%),
+    var(--bg);
+}
+
+[data-theme="serra"] .menu__grain{ display:none; }
+
+/* HERO */
+[data-theme="serra"] .menu__hero{
+  padding: clamp(3rem, 9vw, 5.5rem) clamp(1.25rem, 4vw, 3rem) clamp(2rem, 5vw, 3rem);
+  border-bottom: 1px solid var(--line);
+}
+[data-theme="serra"] .menu__kicker{
+  display:inline-flex; align-items:center; gap:0.6rem;
+  font-family: var(--ff-mono); font-size:0.68rem; letter-spacing:0.24em;
+  text-transform:uppercase; color: var(--sage-dark); margin-bottom:1.4rem;
+}
+[data-theme="serra"] .menu__kicker::before,
+[data-theme="serra"] .menu__kicker::after{ content:""; width:26px; height:1px; background:var(--sage); opacity:0.5; }
+[data-theme="serra"] .menu__title-main{
+  font-family: var(--ff-display); font-weight:600; font-style:normal;
+  font-size: clamp(2.6rem, 8vw, 5rem); color: var(--cream); line-height:1.02;
+}
+[data-theme="serra"] .menu__title-sub{
+  font-family: var(--ff-mono); font-weight:400; font-size:0.3em;
+  letter-spacing:0.4em; text-transform:uppercase; color: var(--sage); margin-top:0.9rem;
+}
+[data-theme="serra"] .menu__subtitle{
+  max-width:34rem; margin:1.4rem auto 0; font-size:0.95rem; color:var(--muted); font-weight:300;
+}
+[data-theme="serra"] .menu__theme-switcher{ color: var(--sage-dark); }
+[data-theme="serra"] .menu__theme-btn.is-active{ background: var(--sage); color: #fff; }
+
+/* NAV */
+[data-theme="serra"] .menu__nav{
+  background: rgba(246,243,234,0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  padding: 0.85rem clamp(1.25rem, 4vw, 3rem);
+}
+[data-theme="serra"] .menu__nav-btn{
+  padding:0.55rem 1.1rem; font-family: var(--ff-mono); font-size:0.72rem;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--muted);
+  border-radius:999px; transition:color 0.25s ease, background 0.25s ease;
+}
+[data-theme="serra"] .menu__nav-btn:hover{ color: var(--cream); }
+[data-theme="serra"] .menu__nav-btn.is-active{ color:#fff; background: var(--sage); }
+
+/* STATO */
+[data-theme="serra"] .menu__state{
+  padding:4rem 0; color: var(--muted); font-family: var(--ff-display); font-size:1.15rem;
+}
+
+/* CATEGORIA */
+[data-theme="serra"] .menu__main{ max-width:1100px; margin:0 auto; padding:0 clamp(1.25rem,4vw,3rem); }
+[data-theme="serra"] .menu__category{ padding: clamp(3rem, 8vw, 5rem) 0 1rem; scroll-margin-top:4.5rem; }
+[data-theme="serra"] .menu__category-head{
+  margin-bottom:2.4rem; padding-bottom:1.1rem; border-bottom:1px solid var(--line); justify-content:space-between;
+}
+[data-theme="serra"] .menu__category-title{
+  font-family: var(--ff-display); font-weight:700; font-size:clamp(1.8rem, 4.5vw, 2.6rem); color: var(--cream);
+}
+[data-theme="serra"] .menu__category-meta{
+  font-family: var(--ff-mono); font-size:0.75rem; letter-spacing:0.08em; text-transform:uppercase; color: var(--sage-dark);
+}
+
+/* GRIGLIA CARD */
+[data-theme="serra"] .menu__items{
+  display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.6rem 1.8rem;
+}
+[data-theme="serra"] .menu__item{
+  background: var(--bg-card); border:1px solid var(--line); border-radius:18px;
+  padding:1.5rem 1.5rem 1.6rem;
+  transition:transform 0.35s cubic-bezier(.2,.7,.3,1), background 0.35s ease, border-color 0.35s ease;
+  animation: serra-reveal 0.6s ease both;
+  box-shadow: 0 4px 16px rgba(63,85,64,0.06);
+}
+@keyframes serra-reveal{ from{ opacity:0; transform:translateY(18px);} to{ opacity:1; transform:translateY(0);} }
+[data-theme="serra"] .menu__item:hover{
+  background: var(--bg-card-hover); border-color: rgba(95,122,95,0.35); transform:translateY(-4px);
+}
+[data-theme="serra"] .menu__item-row{ display:block; }
+[data-theme="serra"] .menu__item-name{
+  font-family: var(--ff-display); font-weight:600; font-size:1.18rem; color: var(--cream); padding-right:4.6rem;
+}
+[data-theme="serra"] .menu__item-badge{
+  position:absolute; top:14px; left:-1px; background: var(--terracotta); color:#fff;
+  font-family: var(--ff-mono); font-size:0.58rem; letter-spacing:0.1em; text-transform:uppercase;
+  padding:0.28rem 0.6rem 0.28rem 0.7rem; border-radius:0 5px 5px 0; box-shadow:0 6px 14px rgba(0,0,0,0.12);
+}
+[data-theme="serra"] .menu__item-price{
+  position:absolute; top:-10px; right:14px; min-width:3.6rem;
+  padding:0.5rem 0.55rem 0.4rem; background: var(--sage); color:#fff;
+  font-family: var(--ff-mono); font-weight:700; font-size:0.95rem; text-align:center;
+  border-radius:8px; box-shadow:0 8px 16px rgba(63,85,64,0.25);
+  transition: transform 0.35s cubic-bezier(.2,.7,.3,1);
+}
+[data-theme="serra"] .menu__item:hover .menu__item-price{ transform:translateY(-2px); }
+[data-theme="serra"] .menu__item-desc{
+  margin-top:0.5rem; font-size:0.87rem; font-weight:300; color:var(--muted); line-height:1.6; padding-right:4.6rem;
+}
+[data-theme="serra"] .menu__item-tags{ margin-top:0.95rem; }
+[data-theme="serra"] .menu__tag{
+  font-family: var(--ff-mono); font-size:0.62rem; letter-spacing:0.08em; text-transform:uppercase;
+  color: var(--sage-dark); border:1px solid rgba(95,122,95,0.35); padding:0.2rem 0.5rem; border-radius:999px;
+}
+[data-theme="serra"] .menu__tag--spicy{ color: var(--terracotta); border-color: rgba(193,122,82,0.45); }
+[data-theme="serra"] .menu__allergen{
+  font-size:0.62rem; font-weight:700; font-family: var(--ff-mono); letter-spacing:0.04em; text-transform:uppercase;
+  color:#fff; background: var(--terracotta); border:1px solid var(--sage-dark); padding:0.15rem 0.45rem; border-radius:6px;
+}
+[data-theme="serra"] .menu__allergens-label{ font-family: var(--ff-mono); color:var(--muted); font-weight:500; }
+[data-theme="serra"] .menu__item-note{ font-size:0.75rem; color: var(--sage-dark); font-style:italic; }
+
+/* NOVITÀ + LEGENDA */
+[data-theme="serra"] .menu__whatsnew{ border-bottom:1px solid var(--line); padding-bottom:1.6rem; }
+[data-theme="serra"] .menu__whatsnew-title{ font-family: var(--ff-display); font-size:1.1rem; color: var(--sage-dark); }
+[data-theme="serra"] .menu__whatsnew-item{ background: var(--bg-card); border:1px solid var(--line); border-radius:12px; color: var(--cream); }
+[data-theme="serra"] .menu__whatsnew-price{ font-family: var(--ff-mono); color: var(--sage); font-weight:700; }
+
+[data-theme="serra"] .menu__allergen-key{ background: var(--bg-card); border:1px solid var(--line); box-shadow:0 4px 16px rgba(63,85,64,0.08); }
+[data-theme="serra"] .menu__allergen-key-title{ font-family: var(--ff-display); color: var(--sage-dark); }
+[data-theme="serra"] .menu__allergen-key-item{ background: var(--bg); color: var(--cream); border:1px solid var(--line); border-radius:12px; }
+[data-theme="serra"] .menu__allergen-key-item:hover{ background: var(--bg-card-hover); border-color: rgba(95,122,95,0.4); }
+[data-theme="serra"] .menu__allergen-key-icon{ color: var(--sage); }
+
+/* FOOTER */
+[data-theme="serra"].footer{
+  padding: 3.5rem clamp(1.25rem, 4vw, 3rem) 3rem;
+  border-top: 1px solid var(--line);
+  background: rgba(246,243,234,0.9);
+  text-align:center;
+}
+[data-theme="serra"].footer .footer__stub{ background: var(--sage); color:#fff; box-shadow:0 8px 16px rgba(63,85,64,0.25); }
+[data-theme="serra"].footer .footer__grid{ color: var(--muted); font-weight:300; }
+[data-theme="serra"].footer .footer__label{ color: var(--cream); font-weight:500; }
+[data-theme="serra"].footer .footer__note{ color: rgba(117,109,94,0.7); }
+
+/* NAVBAR */
+[data-theme="serra"].gfx-navbar,
+[data-theme="serra"] .gfx-navbar{
+  background: rgba(246,243,234,0.9);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+  color: var(--cream);
+}
+[data-theme="serra"] .gfx-navbar__panel{ background:inherit; backdrop-filter:inherit; }
+[data-theme="serra"] .gfx-navbar__brand{ font-weight:600; font-size:1.3rem; color: var(--sage-dark); }
+[data-theme="serra"] .gfx-navbar__link{ color: var(--muted); }
+[data-theme="serra"] .gfx-navbar__link:hover, [data-theme="serra"] .gfx-navbar__link.is-active{ color: var(--cream); }
+[data-theme="serra"] .gfx-navbar__link.is-active::after{
+  content:""; position:absolute; left:0; right:0; bottom:-6px; height:1px; background: var(--sage);
+}
+
+/* EVENTI */
+.events[data-theme="serra"]{
+  background: var(--bg); color: var(--cream); font-family: var(--ff-body); min-height:100vh;
+}
+[data-theme="serra"] .events__hero{ padding: clamp(1rem,1vw,5.5rem) clamp(1.25rem,4vw,3rem) clamp(2rem,5vw,3rem); border-bottom:1px solid var(--line); }
+[data-theme="serra"] .events__hero-title{ font-family: var(--ff-display); font-size:clamp(2.4rem,7vw,4.2rem); color: var(--cream); line-height:1.05; }
+[data-theme="serra"] .events__hero-subtitle{ margin-top:0.9rem; color: var(--muted); }
+[data-theme="serra"] .events__card{ background: var(--bg-card); border:1px solid var(--line); border-radius:16px; }
+[data-theme="serra"] .events__card:hover{ background: var(--bg-card-hover); border-color: rgba(95,122,95,0.35); transform:translateY(-4px); }
+[data-theme="serra"] .events__card-ribbon{ background: var(--sage); color:#fff; border-radius:0 0 8px 8px; }
+[data-theme="serra"] .events__badge--today{ background: var(--terracotta); color:#fff; font-weight:700; }
+[data-theme="serra"] .events__card-title{ font-family: var(--ff-display); color: var(--cream); }
+[data-theme="serra"] .events__card-date{ font-family: var(--ff-mono); color: var(--muted); }
+
+/* PRENOTAZIONI */
+.reservation-page[data-theme="serra"]{
+  --text: var(--cream);
+  --muted: var(--muted);
+  --line: var(--line);
+  --surface-strong: var(--bg-card);
+  --surface-soft: var(--bg-card-hover);
+  --shadow: 0 10px 30px rgba(63,85,64,0.10);
+  --radius-xl: 20px; --radius-lg: 16px; --radius-md: 12px; --radius-sm: 8px;
+  --green: var(--sage);
+  --green-darker: var(--sage-dark);
+  --amber: var(--terracotta);
+  --red: #b3543a;
+  --booking-accent: var(--sage);
+
+  background: var(--bg);
+  color: var(--cream);
+  font-family: var(--ff-body);
+}
+.reservation-page[data-theme="serra"] h1,
+.reservation-page[data-theme="serra"] h2,
+.reservation-page[data-theme="serra"] h3{ font-family: var(--ff-display); }
+.reservation-page[data-theme="serra"] .hero-card,
+.reservation-page[data-theme="serra"] .booking-card,
+.reservation-page[data-theme="serra"] .summary-card,
+.reservation-page[data-theme="serra"] .restaurant-info-card,
+.reservation-page[data-theme="serra"] .order-card{
+  border-radius: var(--radius-xl); border:1px solid var(--line); background: var(--bg-card);
+}
+.reservation-page[data-theme="serra"] .primary-button,
+.reservation-page[data-theme="serra"] .confirm-reservation,
+.reservation-page[data-theme="serra"] .action-btn.primary{
+  background: var(--sage); color:#fff; border-radius:999px;
+}
+.reservation-page[data-theme="serra"] .calendar-day{ background: var(--bg-card-hover); color: var(--cream); border-radius:14px; }
+.reservation-page[data-theme="serra"] .calendar-day.today{ box-shadow: inset 0 0 0 2px var(--sage); }
+.reservation-page[data-theme="serra"] .calendar-day.status-green:not(.is-past){
+  border-color: var(--sage); box-shadow: inset 0 0 0 1.5px var(--sage);
+}
+.reservation-page[data-theme="serra"] .calendar-day.is-past{
+  background: rgba(117,109,94,0.15); color: rgba(117,109,94,0.6); filter: grayscale(0.6);
+}
+.reservation-page[data-theme="serra"] .status-green{ background: rgba(95,122,95,0.10); }
+.reservation-page[data-theme="serra"] .status-medium{ background: rgba(193,122,82,0.14); }
+.reservation-page[data-theme="serra"] .status-hot{ background: rgba(193,122,82,0.2); }
+.reservation-page[data-theme="serra"] .status-full{ background: rgba(179,84,58,0.16); }
+.reservation-page[data-theme="serra"] .modal-sheet{ background: var(--bg-card); border-color: var(--line); color: var(--cream); }
