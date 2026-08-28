@@ -59,7 +59,7 @@ import { ref, watch, onMounted, onBeforeUnmount } from 'vue'
 import { theme, themes } from '../../shared/theme/index.js'
 
 const props = defineProps({
-  brand: { type: String, default: 'Osteria Bruno' },
+  brand: { type: String, default: 'Osteria 68' },
   brandHref: { type: String, default: '/' },
   links: {
     type: Array,

@@ -4,7 +4,7 @@
       <div class="booking-card">
         <header class="events__hero">
           <div class="events__hero-content">
-            <p class="eyebrow">Osteria Bruno</p>
+            <p class="eyebrow">Osteria 68</p>
             <h1 class="events__hero-title">Il luogo giusto per ogni occasione</h1>
             <p class="events__hero-subtitle hero-text">
               Dai pranzi informali alle cene più speciali, il nostro ristorante unisce menu curato, atmosfera accogliente e un servizio pensato per te.

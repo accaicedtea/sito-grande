@@ -4,7 +4,7 @@
     <div class="footer__grid">
       <div>
         <p class="footer__label">Indirizzo</p>
-        <p>Via delle Botteghe Oscure 14, Milano</p>
+        <p>Via delle Botteghe Oscure 14, Roma</p>
       </div>
       <div>
         <p class="footer__label">Orari</p>

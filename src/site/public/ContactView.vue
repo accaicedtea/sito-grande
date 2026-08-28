@@ -4,7 +4,7 @@
       <div class="booking-card">
         <header class="events__hero">
           <div class="events__hero-content">
-            <p class="eyebrow">Osteria Bruno</p>
+            <p class="eyebrow">Osteria 68</p>
             <h1 class="events__hero-title">Contatti</h1>
             <p class="events__hero-subtitle hero-text">
               Scrivici, chiamaci o vieni a trovarci: siamo qui per aiutarti a organizzare ogni momento con tranquillità.
@@ -22,7 +22,7 @@
               <a class="primary-link" href="tel:+390212345678">📞 +39 02 1234 5678</a>
               <a class="primary-link" href="mailto:info@lacorte.it">✉️ info@lacorte.it</a>
               <a class="primary-link" href="https://wa.me/390212345678" target="_blank" rel="noopener">💬 WhatsApp</a>
-              <a class="primary-link" href="https://www.google.com/maps/search/?api=1&query=Via+Roma+12+Milano" target="_blank" rel="noopener">📍 Via Roma 12, 20100 Milano</a>
+              <a class="primary-link" href="https://www.google.com/maps/search/?api=1&query=Via+Roma+12+Roma" target="_blank" rel="noopener">📍 Via Roma 12, 20100 Roma</a>
             </div>
           </div>
         </div>
@@ -32,7 +32,7 @@
           <div class="gfx-card__body">
             <iframe
               title="Mappa Ristorante La Corte"
-              src="https://www.google.com/maps?q=Via+Roma+12+Milano&output=embed"
+              src="https://www.google.com/maps?q=Via+Roma+12+Roma&output=embed"
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
               style="width: 100%; min-height: 320px; border: 0; border-radius: 14px;"

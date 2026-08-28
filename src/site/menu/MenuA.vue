@@ -3,9 +3,9 @@
         <div class="menu__grain"></div>
 
         <header class="menu__hero">
-            <p class="menu__kicker">Trattoria &amp; Osteria — Milano</p>
+            <p class="menu__kicker">Trattoria &amp; Osteria — Roma</p>
             <h1 class="menu__title-main">
-                Bruno<span class="menu__title-sub">Cucina di famiglia dal 1962</span>
+                bistrot 68<span class="menu__title-sub">Cucina di famiglia dal 1962</span>
             </h1>
             <p class="menu__subtitle">Ricette tramandate, ingredienti di stagione, dal 1962.</p>
             <!-- SWITCHER LINGUA -->

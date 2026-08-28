@@ -14,7 +14,7 @@
     <div class="summary-base-grid">
       <div class="summary-base-card">
         <span>Dove si trova</span>
-        <strong>Milano, zona centro</strong>
+        <strong>Roma, zona centro</strong>
       </div>
       <div class="summary-base-card">
         <span>Orari</span>
@@ -29,7 +29,7 @@
     <div class="contact-box">
       <p>Contatti del locale</p>
       <a href="tel:+390212345678">+39 02 1234 5678</a>
-      <small class="muted">Via Roma 12, 20100 Milano</small>
+      <small class="muted">Via Roma 12, 20100 Roma</small>
     </div>
   </div>
 </template>

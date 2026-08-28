@@ -870,11 +870,12 @@ onBeforeUnmount(() => {
   background: var(--text-subtle);
 }
 
-/* toggle rapido "chiuso": ora fratello di .day-cell, posizionato rispetto a .day-cell-wrap */
+/* toggle rapido "chiuso": posizionato a destra della cella del calendario */
 .quick-toggle {
   position: absolute;
   top: 6px;
-  left: 6px;
+  right: 6px;
+  left: auto;
   width: 18px;
   height: 18px;
   border-radius: 50%;
@@ -888,6 +889,10 @@ onBeforeUnmount(() => {
   cursor: pointer;
   transition: opacity var(--transition), color var(--transition), border-color var(--transition), background var(--transition);
   z-index: 2;
+}
+
+.day-cell {
+  padding-right: 26px;
 }
 
 .day-cell-wrap:hover .quick-toggle {

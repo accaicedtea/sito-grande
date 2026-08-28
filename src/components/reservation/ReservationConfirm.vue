@@ -21,7 +21,7 @@ const mapsHref = computed(() => {
   if (props.mapUrl) return props.mapUrl
   const query = [
     props.locationName || 'Ristorante La Corte',
-    props.address      || 'Via Roma 12, Milano',
+    props.address      || 'Via Roma 12, Roma',
   ].filter(Boolean).join(', ')
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`
 })

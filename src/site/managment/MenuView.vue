@@ -110,8 +110,9 @@
             <p class="menu-card__desc" v-if="m.descrizione">{{ m.descrizione }}</p>
           </div>
           <div class="menu-card__actions">
-            <button class="btn btn-ghost btn-sm btn-icon text-light" @click="toggleQr(m)" title="QR Code">
-              Scarica Qr Code -> <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg>
+            <button class="btn btn-primary btn-sm menu-card__qr-button" @click="toggleQr(m)" title="QR Code">
+              <span>Scarica QR code</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg>
             </button>
             <!-- 
             TODO: non disponibile per versione normale
@@ -445,6 +446,34 @@ onMounted(fetchData)
   gap: 6px;
   padding-top: 12px;
   border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+
+.menu-card__qr-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.2;
+  background: linear-gradient(135deg, rgba(117, 92, 255, 0.95), rgba(55, 120, 255, 0.9));
+  border: 1px solid rgba(117, 92, 255, 0.9);
+  box-shadow: 0 8px 18px rgba(82, 99, 255, 0.28);
+  color: #fff;
+  font-weight: 600;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.menu-card__qr-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(82, 99, 255, 0.34);
+  filter: brightness(1.05);
+}
+
+.menu-card__qr-button span {
+  display: inline-block;
 }
 
 /* QR overlay */
