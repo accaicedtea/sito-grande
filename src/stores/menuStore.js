@@ -93,7 +93,15 @@ export async function loadAllMenuData(menuSlug = 'menu-principale', lang = 'fr')
           biologico: prod.biologico,
           piccante_livello: prod.piccante_livello,
           in_evidenza: prod.in_evidenza,
-          note: prod.note || ''
+          note: prod.note || '',
+          // visibilità / stato (passati dal backend)
+          attivo: typeof prod.attivo !== 'undefined' ? prod.attivo : true,
+          menu_attivo: typeof prod.menu_attivo !== 'undefined' ? prod.menu_attivo : true,
+          categoria_visibile: typeof prod.categoria_visibile !== 'undefined' ? prod.categoria_visibile : true,
+          // convenienza per la vista: disponibile se tutte le condizioni sono vere
+          available: (typeof prod.attivo === 'undefined' ? true : Boolean(prod.attivo)) &&
+                     (typeof prod.menu_attivo === 'undefined' ? true : Boolean(prod.menu_attivo)) &&
+                     (typeof prod.categoria_visibile === 'undefined' ? true : Boolean(prod.categoria_visibile))
         };
         allItems.push(item);
 

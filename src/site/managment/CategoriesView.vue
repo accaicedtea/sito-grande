@@ -187,7 +187,7 @@
               style="background:var(--bg-raised);border:1px solid var(--border);border-radius:var(--radius);padding:12px 14px;cursor:pointer;transition:border-color .15s"
               :style="form.visibile ? { borderColor: 'var(--green)' } : {}">
               <input type="checkbox" class="form-check-input" v-model="form.visibile" />
-              <span class="form-check-label">Visibile nel menu totem</span>
+              <span class="form-check-label">Visibile nel menu</span>
             </label>
           </div>
         </div>
@@ -256,9 +256,16 @@ const form = ref({
   visibile: true
 })
 
-// Filtro locale (su dati già paginati)
+function boolValue(v) {
+  return v === true || v === 1 || v === '1' || v === 'true'
+}
+
+// Filtro locale: mostra tutte le categorie, anche quelle nascoste,
+// così la gestione resta allineata a ingredienti e si possono verificare
+// anche gli item non disponibili/non visibili.
 const filtered = computed(() => {
   let r = list.value
+
   if (search.value.trim()) {
     const s = search.value.toLowerCase()
     r = r.filter(c => (c.nome || '').toLowerCase().includes(s))
@@ -296,7 +303,10 @@ async function fetchCats(page = 1) {
 
   const r = await api('GET', url)
   if (r.data && Array.isArray(r.data)) {
-    list.value = r.data
+    list.value = r.data.map(c => ({
+      ...c,
+      visibile: boolValue(c.visibile)
+    }))
     currentPage.value = r.pagination?.current_page || 1
     totalPages.value = r.pagination?.total_pages || 1
     totalItems.value = r.pagination?.total_items || 0

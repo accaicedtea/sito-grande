@@ -25,12 +25,21 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import router from '../../router'
+import { onMounted } from 'vue'
 
 const username = ref('')
 const password = ref('')
 const error = ref('')
 const loading = ref(false)
 const route = useRoute()
+
+onMounted(() => {
+  const token = localStorage.getItem('admin_token') || localStorage.getItem('auth_token')
+  if (token && token !== 'null' && token !== 'undefined') {
+    // Se l'utente è già autenticato, reindirizza alla dashboard
+    router.replace('/gestione')
+  }
+})
 
 async function submit() {
   if (loading.value) return

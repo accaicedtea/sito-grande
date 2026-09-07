@@ -242,7 +242,7 @@
               placeholder="Descrizione breve per il totem" />
           </div>
 
-          <!-- Prezzo, IVA, Prezzo promo -->
+          <!-- Prezzo, IVA, Menu -->
           <div class="form-row-3">
             <div class="form-group">
               <label class="form-label">Prezzo (€) <span style="color:var(--red)">*</span></label>
@@ -258,9 +258,11 @@
               </select>
             </div>
             <div class="form-group">
-              <label class="form-label">Prezzo promo (€)</label>
-              <input v-model="form.prezzo_promo" type="number" step="0.01" min="0" class="form-control"
-                placeholder="Opzionale" />
+              <label class="form-label">Menu</label>
+              <select v-model="form.menu_id_associato" class="form-select">
+                <option value="">— nessun menu —</option>
+                <option v-for="m in menus" :key="m.id" :value="String(m.id)">{{ m.nome }}</option>
+              </select>
             </div>
           </div>
 
@@ -417,6 +419,7 @@ import { ref, computed, onMounted, watch } from 'vue'
 // Stato
 const prod = ref([])
 const categories = ref({})
+const categoriesFull = ref({})
 const menus = ref([])
 const ingredientiList = ref([])
 const msg = ref('')
@@ -447,7 +450,7 @@ const perPage = ref(20)
 
 const form = ref({
   nome: '', descrizione: '', categoria_id: '', prezzo: '', iva: '',
-  prezzo_promo: '', sku: '', vegan: false, vegetariano: false,
+  menu_id_associato: '', sku: '', vegan: false, vegetariano: false,
   senza_glutine: false, biologico: false, attivo: true,
   disponibile: true, in_evidenza: false
 })
@@ -462,12 +465,17 @@ const boolAttrs = [
   { key: 'in_evidenza', label: '★ In evidenza' }
 ]
 
-// Filtro locale (usa menu_id_associato dal backend)
+function boolValue(v) {
+  return v === true || v === 1 || v === '1' || v === 'true'
+}
+
+// Filtro locale: mostra tutti i prodotti, inclusi quelli inattivi,
+// così la gestione resta allineata a ingredienti.
 const filtered = computed(() => {
   let r = prod.value
   if (search.value.trim()) {
     const s = search.value.toLowerCase()
-    r = r.filter(p => p.nome.toLowerCase().includes(s))
+    r = r.filter(p => (p.nome || '').toLowerCase().includes(s))
   }
   if (filterCat.value) {
     r = r.filter(p => String(p.categoria_id) === String(filterCat.value))
@@ -520,8 +528,13 @@ async function loadCategories() {
   const list = r.data || []
   if (list.length) {
     const map = {}
-    list.forEach(c => { map[String(c.id)] = c.nome || '' })
+    const full = {}
+    list.forEach(c => {
+      map[String(c.id)] = c.nome || ''
+      full[String(c.id)] = c
+    })
     categories.value = map
+    categoriesFull.value = full
   }
 }
 
@@ -538,7 +551,16 @@ async function loadProducts(page = 1) {
 
   const r = await api('GET', url)
   if (r.data && Array.isArray(r.data)) {
-    prod.value = r.data
+    prod.value = r.data.map(item => ({
+      ...item,
+      attivo: boolValue(item.attivo),
+      disponibile: boolValue(item.disponibile),
+      vegan: boolValue(item.vegan),
+      vegetariano: boolValue(item.vegetariano),
+      senza_glutine: boolValue(item.senza_glutine),
+      biologico: boolValue(item.biologico),
+      in_evidenza: boolValue(item.in_evidenza)
+    }))
 
     const unique = new Map()
     for (const item of prod.value) {
@@ -582,7 +604,7 @@ function bool(v) {
 function resetForm() {
   form.value = {
     nome: '', descrizione: '', categoria_id: '', prezzo: '', iva: '',
-    prezzo_promo: '', sku: '', vegan: false, vegetariano: false,
+    menu_id_associato: '', sku: '', vegan: false, vegetariano: false,
     senza_glutine: false, biologico: false, attivo: true,
     disponibile: true, in_evidenza: false
   }
@@ -606,7 +628,7 @@ function openEdit(p) {
     categoria_id: catId,
     prezzo: p.prezzo || '',
     iva: String(p.iva || ''),
-    prezzo_promo: p.prezzo_promo || '',
+    menu_id_associato: p.menu_id_associato != null && p.menu_id_associato !== '' ? String(p.menu_id_associato) : '',
     sku: p.sku || '',
     vegan: bool(p.vegan),
     vegetariano: bool(p.vegetariano),
@@ -649,9 +671,9 @@ async function submit() {
   const payload = {
     ...form.value,
     categoria_id: form.value.categoria_id ? String(form.value.categoria_id) : '',
+    menu_id_associato: form.value.menu_id_associato ? String(form.value.menu_id_associato) : '',
     iva: parseFloat(form.value.iva) || 0,
     prezzo: parseFloat(form.value.prezzo) || 0,
-    prezzo_promo: form.value.prezzo_promo ? parseFloat(form.value.prezzo_promo) : null,
     vegan: form.value.vegan ? 1 : 0,
     vegetariano: form.value.vegetariano ? 1 : 0,
     senza_glutine: form.value.senza_glutine ? 1 : 0,
@@ -714,10 +736,11 @@ async function executeRemove() {
 }
 
 async function toggleProp(p, prop) {
-  const payload = { [prop]: p[prop] ? 0 : 1 }
+  const nextValue = boolValue(p[prop]) ? 0 : 1
+  const payload = { [prop]: nextValue }
   const r = await api('PUT', `/admin/prodotti/${p.id}`, payload)
   if (r && r.ok) {
-    p[prop] = !p[prop]
+    p[prop] = boolValue(nextValue)
   }
 }
 

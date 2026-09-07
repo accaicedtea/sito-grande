@@ -62,6 +62,7 @@
                             <div class="menu__item-row">
                                 <span class="menu__item-badge" v-if="item.in_evidenza">In evidenza</span>
                                 <span class="menu__item-name">{{ item.name }}</span>
+                                <span class="menu__item-unavailable" v-if="!item.available">Non disponibile</span>
                                 <span class="menu__item-leader" aria-hidden="true"></span>
                                 <span class="menu__item-price">{{ formatPrice(item.prezzo) }}</span>
                             </div>
@@ -111,7 +112,7 @@ const selectedCategory = ref('all')
 const selectedLang = ref(currentLang.value || 'it')
 
 const LANGUAGES = [
-  { code: 'it', label: 'Italiano', flag: '🇮🇹' },
+  { code: 'it', label: 'Italianoo', flag: '🇮🇹' },
   { code: 'fr', label: 'Français', flag: '🇫🇷' },
   { code: 'de', label: 'Deutsch',  flag: '🇩🇪' },
   { code: 'zh', label: '中文',      flag: '🇨🇳' },

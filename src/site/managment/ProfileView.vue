@@ -207,6 +207,7 @@
 
 <script setup>
 import { ref, reactive, computed, onMounted } from 'vue'
+import PageHeader from '../../components/managment/PageHeader.vue'
 
 /* ── API helper (stesso pattern usato nella dashboard) ────── */
 async function api(method, path, body) {
@@ -221,7 +222,34 @@ async function api(method, path, body) {
   let data = null
   try { data = await res.json() } catch { /* risposta vuota */ }
   if (!res.ok) {
-    const message = (data && (data.message || data.error)) || 'Si è verificato un errore imprevisto.'
+    // Estrai il messaggio di errore gestendo vari formati comunemente restituiti
+    let message = null
+    if (data) {
+      if (typeof data === 'string') {
+        message = data
+      } else if (data.messages) {
+        // supporta { messages: { error: '...' } } o { messages: '...' }
+        if (typeof data.messages === 'string') {
+          message = data.messages
+        } else if (data.messages.error) {
+          message = data.messages.error
+        } else if (data.messages.message) {
+          message = data.messages.message
+        } else {
+          const vals = Object.values(data.messages).flat?.() || Object.values(data.messages)
+          const firstStr = Array.isArray(vals) ? vals.find(v => typeof v === 'string') : vals
+          if (firstStr) message = firstStr
+        }
+      } else if (data.message) {
+        message = data.message
+      } else if (data.error) {
+        message = data.error
+      }
+    }
+    // fallback: mostra codice e testo di stato se non abbiamo un messaggio leggibile
+    if (!message) message = `Errore ${res.status} ${res.statusText || ''}`.trim()
+    // assicurati che sia una stringa
+    if (typeof message !== 'string') message = String(message)
     throw new Error(message)
   }
   return data
@@ -238,7 +266,9 @@ function flash(type, message) {
   banner.type = type
   banner.message = message
   clearTimeout(bannerTimer)
-  bannerTimer = setTimeout(() => { banner.message = '' }, 4500)
+  // mostra gli errori (danger) più a lungo
+  const timeout = type === 'danger' ? 8000 : 4500
+  bannerTimer = setTimeout(() => { banner.message = '' }, timeout)
 }
 
 /* ── Dati profilo ──────────────────────────────────────────── */

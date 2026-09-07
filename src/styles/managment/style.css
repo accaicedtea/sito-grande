@@ -813,6 +813,7 @@
 
 .management-shell .form-control,
 .management-shell select.form-control,
+.management-shell .form-select,
 .management-shell textarea.form-control {
     width: 100%;
     min-height: 38px;
@@ -826,6 +827,22 @@
     transition: border-color var(--transition), box-shadow var(--transition), background var(--transition);
 }
 
+.management-shell .form-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image:
+        linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+        linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+    background-position:
+        calc(100% - 18px) calc(50% - 2px),
+        calc(100% - 12px) calc(50% - 2px);
+    background-size: 6px 6px, 6px 6px;
+    background-repeat: no-repeat;
+    padding-right: 34px;
+    cursor: pointer;
+}
+
 .management-shell textarea.form-control {
     min-height: 96px;
     padding: 10px 12px;
@@ -837,12 +854,14 @@
     color: var(--text-subtle);
 }
 
-.management-shell .form-control:focus {
+.management-shell .form-control:focus,
+.management-shell .form-select:focus {
     outline: none;
     border-color: var(--accent-light);
     box-shadow: var(--focus-ring);
-    background: var(--bg-surface);
+    background-color: var(--bg-surface);
 }
+
 
 .management-shell .form-control.is-invalid {
     border-color: var(--red-light);

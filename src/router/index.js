@@ -145,9 +145,11 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   document.title = to.meta.title ? `Osteria | ${to.meta.title}` : 'Osteria'
 
-  // Stessa chiave usata da LoginView per salvare il token e da
-  // PrivateLayout per rimuoverlo al logout.
-  const isAuthenticated = !!localStorage.getItem('admin_token')
+  // Verifica robusta dell'autenticazione: controlla sia admin_token che auth_token
+  // (alcune parti dell'app possono salvare uno dei due). Evita valori stringa
+  // come 'null' o 'undefined'.
+  const token = localStorage.getItem('admin_token') || localStorage.getItem('auth_token')
+  const isAuthenticated = !!token && token !== 'null' && token !== 'undefined'
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     return { name: 'login', query: { redirect: to.fullPath } }
