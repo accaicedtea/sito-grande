@@ -16,13 +16,19 @@
         Indietro
       </button>
 
-      <button class="btn text-white" @click="fetchData" title="Aggiorna">
-        Aggiorna 
+      <div class="page-actions">
+        <button class="btn btn-primary" style="margin-left:5px ;" @click="startNewMenu" title="Aggiungi menu">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>
+          Nuovo menu
+        </button>
+        <button class="btn text-white" @click="fetchData" title="Aggiorna">
+          Aggiorna
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-left: 4px;">
           <polyline points="23 4 23 10 17 10" />
           <path d="M20.49 15a9 9 0 11-2.12-9.36L23 10" />
         </svg>
-      </button>
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -114,11 +120,19 @@
               <span>Scarica QR code</span>
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" /><rect x="14" y="3" width="7" height="7" /><rect x="14" y="14" width="7" height="7" /><rect x="3" y="14" width="7" height="7" /></svg>
             </button>
-            <!-- 
-            TODO: non disponibile per versione normale
+            <a class="btn btn-ghost btn-sm menu-card__view-button" :href="`/menu/${m.slug}`" target="_blank" rel="noopener" title="Apri menu pubblico">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3h7v7" /><path d="M10 14L21 3" /><path d="M21 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5" /></svg>
+              <span>Vedi menu</span>
+            </a>
             <button class="btn btn-ghost btn-sm btn-icon" @click="startEdit(m)" title="Modifica">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" /><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z" /></svg>
-            </button> -->
+            </button>
+            <button class="btn btn-ghost btn-sm btn-icon" @click="openContentModal(m)" title="Gestisci prodotti e categorie">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v14H4z" /><path d="M8 9h8M8 13h5" /><path d="M17 17l2 2 3-3" /></svg>
+            </button>
+            <button class="btn btn-ghost btn-sm btn-icon" @click="confirmDelete(m)" title="Elimina menu" style="color:var(--red-text)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2" /></svg>
+            </button>
           </div>
 
           <!-- QR overlay -->
@@ -178,6 +192,72 @@
       <span>Nessun menu creato</span>
       <button class="btn btn-primary btn-sm" @click="startNewMenu">Crea il primo</button>
     </div>
+
+    <div v-if="showDeleteConfirm" class="modal-backdrop" @click.self="showDeleteConfirm = false">
+      <div class="modal-box menu-modal menu-modal--small">
+        <div class="modal-header"><span class="modal-title">Elimina menu</span><button class="modal-close" @click="showDeleteConfirm = false">✕</button></div>
+        <div class="modal-body"><p>Sei sicuro di voler eliminare <strong>{{ deletingName }}</strong>?</p><p class="text-muted" style="font-size:12px">L'operazione non può essere annullata.</p></div>
+        <div class="modal-footer"><button class="btn btn-ghost" @click="showDeleteConfirm = false">Annulla</button><button class="btn btn-danger" @click="executeDelete" :disabled="saving">Elimina</button></div>
+      </div>
+    </div>
+
+    <div v-if="contentMenu" class="modal-backdrop" @click.self="closeContentModal">
+      <div class="modal-box menu-modal menu-modal--large content-modal">
+        <div class="modal-header content-modal__header">
+          <div>
+            <span class="modal-kicker">CONFIGURAZIONE MENU</span>
+            <span class="modal-title">Gestisci contenuti</span>
+            <span class="content-modal__menu-name">{{ contentMenu.nome }}</span>
+          </div>
+          <button class="modal-close" @click="closeContentModal" aria-label="Chiudi">✕</button>
+        </div>
+        <div class="modal-body content-modal__body">
+          <div class="content-modal__intro">
+            <span>Seleziona cosa deve comparire in questo menu.</span>
+            <span class="content-modal__total">{{ selectedCategoryIds.length + selectedProductIds.length }} elementi selezionati</span>
+          </div>
+          <div class="content-columns">
+            <section class="content-section">
+              <div class="content-section__header">
+                <div><span class="content-section__index">01</span><strong>Categorie</strong></div>
+                <span>{{ selectedCategoryIds.length }} selezionate</span>
+              </div>
+              <div class="content-section__list">
+                <label v-for="category in categories" :key="category.id" class="content-option">
+                  <input type="checkbox" :value="String(category.id)" v-model="selectedCategoryIds">
+                  <span class="content-option__check"></span>
+                  <span class="content-option__name">{{ category.nome }}</span>
+                  <span class="content-option__meta">{{ category.visibile ? 'Visibile' : 'Nascosta' }}</span>
+                </label>
+                <div v-if="!categories.length" class="content-empty">Nessuna categoria disponibile.</div>
+              </div>
+            </section>
+            <section class="content-section">
+              <div class="content-section__header">
+                <div><span class="content-section__index">02</span><strong>Prodotti</strong></div>
+                <span>{{ selectedProductIds.length }} selezionati</span>
+              </div>
+              <div class="content-section__list">
+                <label v-for="product in products" :key="product.id" class="content-option">
+                  <input type="checkbox" :value="String(product.id)" v-model="selectedProductIds">
+                  <span class="content-option__check"></span>
+                  <span class="content-option__name">{{ product.nome }}</span>
+                  <span class="content-option__meta">{{ product.categoria_nome || 'Senza categoria' }}</span>
+                </label>
+                <div v-if="!products.length" class="content-empty">Nessun prodotto disponibile.</div>
+              </div>
+            </section>
+          </div>
+        </div>
+        <div class="modal-footer content-modal__footer">
+          <span class="content-modal__hint">Le modifiche saranno applicate al menu selezionato.</span>
+          <div class="content-modal__actions">
+            <button class="btn btn-ghost" @click="closeContentModal">Annulla</button>
+            <button class="btn btn-primary" @click="saveContent" :disabled="saving">{{ saving ? 'Salvo…' : 'Salva contenuti' }}</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -191,6 +271,14 @@ const creating = ref(false)
 const editingId = ref(null)
 const saving = ref(false)
 const qrVisibleId = ref(null)
+const showDeleteConfirm = ref(false)
+const deletingId = ref(null)
+const deletingName = ref('')
+const contentMenu = ref(null)
+const products = ref([])
+const categories = ref([])
+const selectedProductIds = ref([])
+const selectedCategoryIds = ref([])
 
 const newForm = ref({ nome: '', slug: '', descrizione: '', attivo: true })
 const editForm = ref({ nome: '', slug: '', descrizione: '', attivo: true })
@@ -200,6 +288,10 @@ const publicBaseUrl = import.meta.env.VITE_PUBLIC_BASE_URL || window.location.or
 function qrUrlFor(menu) {
   const url = `${publicBaseUrl}/menu/${menu.slug}`
   return `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}`
+}
+
+function boolValue(value) {
+  return value === true || value === 1 || value === '1' || value === 'true'
 }
 
 const totalScans = computed(() => list.value.reduce((sum, m) => sum + (m.qr_scansioni || 0), 0))
@@ -225,7 +317,20 @@ async function api(m, p, b) {
 
 async function fetchData() {
   const r = await api('GET', '/admin/menu')
-  if (r?.data) list.value = r.data
+  if (Array.isArray(r?.data)) {
+    list.value = r.data.map(menu => ({
+      ...menu,
+      attivo: boolValue(menu.attivo),
+      qr_scansioni: Number(menu.qr_scansioni) || 0
+    }))
+  }
+}
+
+async function loadContentOptions() {
+  if (!contentMenu.value) return
+  const response = await api('GET', `/admin/menu/${contentMenu.value.id}/contenuti`)
+  products.value = Array.isArray(response?.prodotti) ? response.prodotti : []
+  categories.value = Array.isArray(response?.categorie) ? response.categorie : []
 }
 
 // --- Nuovo menu inline ---
@@ -260,7 +365,7 @@ function startEdit(menu) {
     nome: menu.nome,
     slug: menu.slug,
     descrizione: menu.descrizione || '',
-    attivo: !!menu.attivo
+    attivo: boolValue(menu.attivo)
   }
 }
 function cancelEdit() {
@@ -279,6 +384,75 @@ async function submitEdit(id) {
     msgType.value = 'success'
   } else {
     msg.value = r?.messages?.nome || r?.message || 'Errore durante la modifica'
+    msgType.value = 'danger'
+  }
+}
+
+function confirmDelete(menu) {
+  deletingId.value = menu.id
+  deletingName.value = menu.nome
+  showDeleteConfirm.value = true
+}
+
+async function executeDelete() {
+  if (!deletingId.value) return
+  saving.value = true
+  const r = await api('DELETE', `/admin/menu/${deletingId.value}`)
+  saving.value = false
+  if (r?.ok) {
+    showDeleteConfirm.value = false
+    await fetchData()
+    msg.value = 'Menu eliminato'
+    msgType.value = 'success'
+  } else {
+    msg.value = r?.messaggio || r?.message || 'Errore durante l\'eliminazione'
+    msgType.value = 'danger'
+  }
+  deletingId.value = null
+  deletingName.value = ''
+}
+
+async function openContentModal(menu) {
+  contentMenu.value = menu
+  await loadContentOptions()
+  selectedProductIds.value = products.value
+    .filter(product => String(product.menu_id_associato) === String(menu.id) && Number(product.menu_attivo ?? 1) === 1)
+    .map(product => String(product.id))
+  selectedCategoryIds.value = categories.value
+    .filter(category => String(category.menu_id) === String(menu.id))
+    .map(category => String(category.id))
+}
+
+function closeContentModal() {
+  contentMenu.value = null
+  selectedProductIds.value = []
+  selectedCategoryIds.value = []
+}
+
+async function saveContent() {
+  if (!contentMenu.value) return
+  saving.value = true
+  const menuId = String(contentMenu.value.id)
+  const productUpdates = products.value
+    .filter(product => selectedProductIds.value.includes(String(product.id)) !== (String(product.menu_id_associato) === menuId))
+    .map(product => api('PUT', `/admin/prodotti/${product.id}`, {
+      ...product,
+      menu_id_associato: selectedProductIds.value.includes(String(product.id)) ? menuId : ''
+    }))
+  const categoryUpdates = categories.value
+    .filter(category => selectedCategoryIds.value.includes(String(category.id)) !== (String(category.menu_id) === menuId))
+    .map(category => api('PUT', `/admin/categorie/${category.id}`, {
+      ...category,
+      menu_id: selectedCategoryIds.value.includes(String(category.id)) ? menuId : ''
+    }))
+  const responses = await Promise.all([...productUpdates, ...categoryUpdates])
+  saving.value = false
+  if (responses.every(response => response?.ok)) {
+    closeContentModal()
+    msg.value = 'Contenuti del menu aggiornati'
+    msgType.value = 'success'
+  } else {
+    msg.value = 'Alcuni contenuti non sono stati aggiornati'
     msgType.value = 'danger'
   }
 }
@@ -474,6 +648,18 @@ onMounted(fetchData)
 
 .menu-card__qr-button span {
   display: inline-block;
+}
+
+.menu-card__view-button {
+  align-items: center;
+  display: inline-flex;
+  gap: 5px;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.menu-card__view-button svg {
+  flex-shrink: 0;
 }
 
 /* QR overlay */
@@ -681,5 +867,221 @@ onMounted(fetchData)
 .toast-fade-leave-to {
   opacity: 0;
   transform: translateX(30px);
+}
+
+.content-modal {
+  width: min(920px, calc(100vw - 32px));
+  max-height: min(780px, calc(100vh - 32px));
+}
+
+.content-modal__header {
+  align-items: flex-start;
+  background: var(--bg-raised);
+  padding: 22px 24px 18px;
+}
+
+.modal-kicker {
+  display: block;
+  color: var(--accent-light);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .16em;
+  margin-bottom: 5px;
+}
+
+.content-modal__header .modal-title {
+  display: block;
+  font-size: 19px;
+  margin-bottom: 3px;
+}
+
+.content-modal__menu-name {
+  color: var(--text-muted);
+  display: block;
+  font-size: 13px;
+}
+
+.content-modal__body {
+  padding: 20px 24px 24px;
+}
+
+.content-modal__intro {
+  align-items: center;
+  color: var(--text-secondary);
+  display: flex;
+  font-size: 13px;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.content-modal__total {
+  color: var(--accent-light);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.content-columns {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.content-section {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-muted);
+  border-radius: var(--radius);
+  min-width: 0;
+  overflow: hidden;
+}
+
+.content-section__header {
+  align-items: center;
+  background: var(--bg-raised);
+  border-bottom: 1px solid var(--border);
+  color: var(--text-muted);
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  justify-content: space-between;
+  letter-spacing: .06em;
+  padding: 12px 14px;
+  text-transform: uppercase;
+}
+
+.content-section__header > div {
+  align-items: center;
+  color: var(--text-primary);
+  display: flex;
+  gap: 9px;
+}
+
+.content-section__index {
+  color: var(--accent-light);
+  font-size: 10px;
+}
+
+.content-section__list {
+  max-height: 390px;
+  overflow-y: auto;
+  padding: 6px;
+}
+
+.content-option {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 16px minmax(0, 1fr) auto;
+  min-height: 42px;
+  padding: 7px 9px;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.content-option:hover {
+  background: var(--bg-raised);
+  border-color: var(--border-muted);
+}
+
+.content-option input {
+  height: 16px;
+  margin: 0;
+  opacity: 0;
+  position: absolute;
+  width: 16px;
+}
+
+.content-option__check {
+  border: 1px solid var(--border-muted);
+  border-radius: 4px;
+  height: 16px;
+  position: relative;
+  width: 16px;
+}
+
+.content-option input:checked + .content-option__check {
+  background: var(--accent-light);
+  border-color: var(--accent-light);
+}
+
+.content-option input:checked + .content-option__check::after {
+  border-bottom: 2px solid #0d1117;
+  border-right: 2px solid #0d1117;
+  content: '';
+  height: 8px;
+  left: 5px;
+  position: absolute;
+  top: 2px;
+  transform: rotate(45deg);
+  width: 4px;
+}
+
+.content-option__name {
+  color: var(--text-primary);
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.content-option__meta {
+  color: var(--text-subtle);
+  font-size: 10px;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.content-empty {
+  color: var(--text-muted);
+  font-size: 12px;
+  padding: 20px 12px;
+  text-align: center;
+}
+
+.content-modal__footer {
+  align-items: center;
+  padding: 14px 24px;
+}
+
+.content-modal__hint {
+  color: var(--text-subtle);
+  font-size: 11px;
+}
+
+.content-modal__actions {
+  display: flex;
+  gap: 8px;
+}
+
+@media (max-width: 700px) {
+  .content-modal__body,
+  .content-modal__header,
+  .content-modal__footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .content-modal__intro,
+  .content-modal__footer {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .content-columns {
+    grid-template-columns: 1fr;
+  }
+
+  .content-section__list {
+    max-height: 250px;
+  }
+
+  .content-modal__actions {
+    justify-content: flex-end;
+    width: 100%;
+  }
 }
 </style>

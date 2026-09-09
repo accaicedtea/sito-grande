@@ -41,6 +41,10 @@
         <main class="menu__main">
 
             <div v-if="isLoading" class="menu__state">Stiamo preparando il menu…</div>
+            <div v-else-if="errorStatus === 404" class="menu__state menu__state--unavailable">
+                <p class="menu__state-title">Menu non disponibile</p>
+                <p>Il menu richiesto non esiste, non è attivo oppure non è più pubblicato.</p>
+            </div>
             <div v-else-if="error" class="menu__state">
                 <p>Si è verificato un problema: {{ error }}</p>
             </div>
@@ -104,10 +108,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import { theme } from '../../shared/theme/index.js'
-import { loadAllMenuData, categoriesWithItems, isLoading, error, allergens, currentLang } from '../../stores/menuStore.js'
+import { loadAllMenuData, categoriesWithItems, isLoading, error, errorStatus, allergens, currentLang } from '../../stores/menuStore.js'
 
+const route = useRoute()
+const menuSlug = computed(() => route.params.slug || 'menu-principale')
 const selectedCategory = ref('all')
 const selectedLang = ref(currentLang.value || 'it')
 
@@ -123,14 +130,19 @@ async function changeLang(code) {
   selectedLang.value = code
   const prevCategory = selectedCategory.value   
   selectedCategory.value = 'all'
-  await loadAllMenuData('menu-principale', code)
+    await loadAllMenuData(menuSlug.value, code)
   if (prevCategory !== 'all' && categoriesWithItems.value.some(c => c.id === prevCategory)) {
     selectedCategory.value = prevCategory
   }
 }
 
+async function loadCurrentMenu() {
+    selectedCategory.value = 'all'
+    await loadAllMenuData(menuSlug.value, selectedLang.value)
+}
+
 onMounted(async () => {
-  await loadAllMenuData('menu-principale', selectedLang.value)
+    await loadCurrentMenu()
 })
 
 const visibleCategories = computed(() => {

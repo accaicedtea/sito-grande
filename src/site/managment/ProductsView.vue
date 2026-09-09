@@ -1,13 +1,13 @@
 <template>
-  <div class="management-shell page-md">
+  <div class="management-shell page-md catalog-page">
     <!-- ========== HEADER ========== -->
-    <div class="page-header">
+    <div class="page-header catalog-header">
       <div>
-        <small
-          style="font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent-light)">CATALOGO</small>
+        <small class="catalog-eyebrow">CATALOGO / OFFERTA</small>
         <h1 class="page-title">Prodotti</h1>
+        <p class="catalog-subtitle">Gestisci piatti, prezzi, disponibilità e menu associati.</p>
       </div>
-      <div class="page-actions">
+      <div class="page-actions catalog-toolbar">
         <!-- Ricerca -->
         <div style="position:relative">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -15,18 +15,17 @@
             <circle cx="11" cy="11" r="8" />
             <path d="M21 21l-4.35-4.35" />
           </svg>
-          <input v-model="search" placeholder="Cerca prodotto…" class="form-control"
-            style="padding-left:30px;width:200px;height:34px;font-size:13px" />
+          <input v-model="search" placeholder="Cerca prodotto…" class="form-control catalog-search" />
         </div>
 
         <!-- Dropdown Menu -->
-        <select v-model="filterMenu" class="form-select" style="width:160px;height:34px;font-size:13px">
+        <select v-model="filterMenu" class="form-select catalog-filter">
           <option value="">Tutti i menu</option>
           <option v-for="m in menus" :key="m.id" :value="m.id">{{ m.nome }}</option>
         </select>
 
         <!-- Dropdown Categoria -->
-        <select v-model="filterCat" class="form-select" style="width:160px;height:34px;font-size:13px">
+        <select v-model="filterCat" class="form-select catalog-filter">
           <option value="">Tutte le categorie</option>
           <option v-for="(name, id) in categories" :key="id" :value="id">{{ name }}</option>
         </select>
@@ -54,9 +53,8 @@
     </div>
 
     <!-- KPI -->
-    <div class="kpi-grid" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr));margin-bottom:20px"
-      v-if="prod.length">
-      <div class="kpi-card" v-for="k in kpiCards" :key="k.label" :style="{ borderLeft: '3px solid ' + k.color }">
+    <div class="kpi-grid catalog-kpis" v-if="prod.length">
+      <div class="kpi-card catalog-kpi" v-for="k in kpiCards" :key="k.label" :style="{ borderLeft: '3px solid ' + k.color }">
         <div class="kpi-card__body">
           <span class="kpi-card__label">{{ k.label }}</span>
           <span class="kpi-card__value" :style="{ color: k.color }">{{ k.val }}</span>
@@ -65,9 +63,9 @@
     </div>
 
     <!-- Tabella prodotti -->
-    <div class="card" style="padding:0;overflow:hidden">
+    <div class="card catalog-table-shell">
       <div class="table-wrap">
-        <table class="table-cards" style="width:100%">
+        <table class="table-cards catalog-table">
           <thead>
             <tr>
               <th style="padding-left:20px;width:36px">#</th>
@@ -86,15 +84,14 @@
                 style="color:var(--text-subtle);font-family:var(--font-mono);font-size:11px;padding-left:16px;width:36px">
                 {{ (currentPage - 1) * perPage + idx + 1 }}
               </td>
-              <td style="max-width:220px">
+              <td class="catalog-primary-cell">
                 <div class="fw-600"
                   style="color:var(--text-primary);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">
                   {{ p.nome }}</div>
                 <div v-if="p.sku" class="mono text-muted" style="font-size:10px">{{ p.sku }}</div>
               </td>
               <td>
-                <span
-                  style="font-size:12px;color:var(--text-muted);background:var(--bg-raised);padding:3px 8px;border-radius:4px;white-space:nowrap">
+                <span class="catalog-tag">
                   {{ p.categoria_nome || '—' }}
                 </span>
               </td>
@@ -130,8 +127,8 @@
                   </button>
                 </div>
               </td>
-              <td style="text-align:right;white-space:nowrap;padding-right:16px">
-                <div style="display:flex;gap:5px;justify-content:flex-end">
+              <td class="catalog-actions-cell">
+                <div class="catalog-actions">
                   <!-- Dettagli -->
                   <button class="btn btn-ghost btn-sm btn-icon" @click="viewDetails(p)" title="Dettagli">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

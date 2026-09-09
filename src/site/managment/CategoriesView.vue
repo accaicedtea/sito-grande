@@ -1,13 +1,13 @@
 <template>
-  <div class="management-shell page-md">
+  <div class="management-shell page-md catalog-page">
     <!-- ========== HEADER ========== -->
-    <div class="page-header">
+    <div class="page-header catalog-header">
       <div>
-        <small
-          style="font-family:var(--font-mono);font-size:10px;text-transform:uppercase;letter-spacing:.2em;color:var(--accent-light)">CATALOGO</small>
+        <small class="catalog-eyebrow">CATALOGO / STRUTTURA</small>
         <h1 class="page-title">Categorie</h1>
+        <p class="catalog-subtitle">Organizza l'offerta e definisci l'ordine di visualizzazione.</p>
       </div>
-      <div class="page-actions">
+      <div class="page-actions catalog-toolbar">
         <!-- Ricerca -->
         <div style="position:relative">
           <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -15,12 +15,11 @@
             <circle cx="11" cy="11" r="8" />
             <path d="M21 21l-4.35-4.35" />
           </svg>
-          <input v-model="search" placeholder="Cerca categoria…" class="form-control"
-            style="padding-left:30px;width:200px;height:34px;font-size:13px" />
+          <input v-model="search" placeholder="Cerca categoria…" class="form-control catalog-search" />
         </div>
 
         <!-- Dropdown Menu -->
-        <select v-model="filterMenu" class="form-select" style="width:160px;height:34px;font-size:13px">
+        <select v-model="filterMenu" class="form-select catalog-filter">
           <option value="">Tutti i menu</option>
           <option v-for="m in menus" :key="m.id" :value="m.id">{{ m.nome }}</option>
         </select>
@@ -48,26 +47,25 @@
     </div>
 
     <!-- KPI -->
-    <div class="kpi-grid" style="grid-template-columns:repeat(auto-fill,minmax(160px,1fr));margin-bottom:20px"
-      v-if="list.length">
-      <div class="kpi-card" style="border-left:3px solid var(--blue)">
+    <div class="kpi-grid catalog-kpis" v-if="list.length">
+      <div class="kpi-card catalog-kpi" style="border-left:3px solid var(--blue)">
         <div class="kpi-card__body"><span class="kpi-card__label">Totali</span><span class="kpi-card__value">{{
             totalItems }}</span></div>
       </div>
-      <div class="kpi-card" style="border-left:3px solid var(--green)">
+      <div class="kpi-card catalog-kpi" style="border-left:3px solid var(--green)">
         <div class="kpi-card__body"><span class="kpi-card__label">Visibili</span><span class="kpi-card__value">{{
           list.filter(c => c.visibile).length }}</span></div>
       </div>
-      <div class="kpi-card" style="border-left:3px solid var(--red)">
+      <div class="kpi-card catalog-kpi" style="border-left:3px solid var(--red)">
         <div class="kpi-card__body"><span class="kpi-card__label">Nascoste</span><span class="kpi-card__value">{{
           list.filter(c => !c.visibile).length }}</span></div>
       </div>
     </div>
 
     <!-- Tabella categorie -->
-    <div class="card" style="padding:0;overflow:hidden">
+    <div class="card catalog-table-shell">
       <div class="table-wrap">
-        <table class="table-cards" style="width:100%">
+        <table class="table-cards catalog-table">
           <thead>
             <tr>
               <th style="padding-left:20px;width:36px">#</th>
@@ -83,8 +81,8 @@
                 style="color:var(--text-subtle);font-family:var(--font-mono);font-size:11px;padding-left:16px;width:36px">
                 {{ (currentPage - 1) * perPage + idx + 1 }}
               </td>
-              <td>
-                <div style="display:flex;align-items:center;gap:8px">
+              <td class="catalog-primary-cell">
+                <div class="category-name-cell">
                   <div v-if="c.colore"
                     :style="{ width: '12px', height: '12px', borderRadius: '50%', background: c.colore, flexShrink: 0 }" />
                   <div>
@@ -96,8 +94,7 @@
                 </div>
               </td>
               <td>
-                <span
-                  style="font-family:var(--font-mono);font-size:13px;color:var(--text-secondary);background:var(--bg-raised);padding:3px 9px;border-radius:5px">{{
+                <span class="catalog-order">{{
                     c.ordine ?? 0 }}</span>
               </td>
               <td>
@@ -107,8 +104,8 @@
                   {{ c.visibile ? 'Visibile' : 'Nascosta' }}
                 </button>
               </td>
-              <td style="text-align:right;white-space:nowrap;padding-right:16px">
-                <div style="display:flex;gap:5px;justify-content:flex-end">
+              <td class="catalog-actions-cell">
+                <div class="catalog-actions">
                   <button class="btn btn-ghost btn-sm btn-icon" @click="openModal(c)" title="Modifica">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                       <path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7" />

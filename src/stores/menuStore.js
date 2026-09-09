@@ -9,6 +9,8 @@ export const isLoading = ref(false);
 export const isLoaded = ref(false);
 export const error = ref(null);
 export const currentLang = ref('fr');
+export const currentMenuSlug = ref(null);
+export const errorStatus = ref(null);
 
 /* fallback solo se il backend non fornisce un'icona per l'allergene */
 const ALLERGEN_ICON_FALLBACK = {
@@ -42,12 +44,13 @@ function mapCategoryIcon(nome) {
 }
 
 export async function loadAllMenuData(menuSlug = 'menu-principale', lang = 'fr') {
-  if (isLoaded.value && lang === currentLang.value) return;
+  if (isLoaded.value && menuSlug === currentMenuSlug.value && lang === currentLang.value) return;
 
   isLoading.value = true;
   error.value = null;
 
   try {
+    errorStatus.value = null;
     const response = await api.get(`/menu/pubblici/${menuSlug}`, { params: { lang } });
     const menuData = response.data?.menu || response.data;
 
@@ -127,9 +130,15 @@ export async function loadAllMenuData(menuSlug = 'menu-principale', lang = 'fr')
     items.value = allItems;
 
     currentLang.value = lang;
+    currentMenuSlug.value = menuSlug;
     isLoaded.value = true;
   } catch (err) {
-    error.value = err.message || 'Errore sconosciuto';
+    errorStatus.value = err.response?.status || null;
+    if (errorStatus.value === 404) {
+      error.value = 'Menu non disponibile';
+    } else {
+      error.value = err.response?.data?.message || err.message || 'Errore sconosciuto';
+    }
     categories.value = [];
     items.value = [];
     allergens.value = [];

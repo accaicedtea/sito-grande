@@ -22,6 +22,12 @@ const routes = [
         meta: { title: 'Menu' }
       },
       {
+        path: 'menu/:slug',
+        name: 'menu-slug',
+        component: () => import(/* webpackChunkName: "menu" */ '../site/menu/MenuA.vue'),
+        meta: { title: 'Menu' }
+      },
+      {
         path: 'eventi',
         name: 'eventi',
         component: () => import(/* webpackChunkName: "eventi" */ '../site/events/EventsView.vue'),
