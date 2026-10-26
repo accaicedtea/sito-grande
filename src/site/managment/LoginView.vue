@@ -5,16 +5,21 @@
       <h1 class="login-title">Accesso Admin</h1>
       <div class="form-group">
         <label class="form-label">Username</label>
-        <input class="form-control" v-model="username" type="email" required placeholder="admin@example.com" @keyup.enter="submit" />
+        <input class="form-control" v-model="username" type="email" required placeholder="admin@example.com"
+          @keyup.enter="submit" />
       </div>
       <div class="form-group">
         <label class="form-label">Password</label>
-        <input class="form-control" v-model="password" type="password" required placeholder="••••••••" @keyup.enter="submit" />
+        <input class="form-control" v-model="password" type="password" required placeholder="••••••••"
+          @keyup.enter="submit" />
       </div>
       <div v-if="error" class="alert alert-danger">{{ error }}</div>
-      <button class="btn btn-primary w-100 text-center" :disabled="loading" @click="submit" style="margin-top:8px">
-        <svg v-if="loading" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="animation:spin 1s linear infinite"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
-        {{ loading ? 'Accesso…' : 'Accedi' }}
+      <button class="btn btn-primary btn-block text-center mt-4" :disabled="loading" @click="submit">
+        <svg v-if="loading" class="spinner-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="23 4 23 10 17 10" />
+          <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+        </svg>
+        <span>{{ loading ? 'Accesso…' : 'Accedi' }}</span>
       </button>
       <p class="login-footer">Panel v2 — {{ new Date().getFullYear() }}</p>
     </div>
@@ -74,7 +79,12 @@ async function submit() {
 
 <style scoped>
 @keyframes spin {
-  from { transform: rotate(0deg) }
-  to { transform: rotate(360deg) }
+  from {
+    transform: rotate(0deg)
+  }
+
+  to {
+    transform: rotate(360deg)
+  }
 }
 </style>

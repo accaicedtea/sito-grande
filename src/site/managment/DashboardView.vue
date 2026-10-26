@@ -127,16 +127,19 @@ async function api(method, path) {
 async function loadStats() {
   try {
     const res = await api('GET', '/admin/dashboard')
-    if (res && res.stats) {
+    
+    // Verifichiamo che esista res.data (come da tuo JSON)
+    if (res && res.data) {
       stats.value = {
-        menu: res.stats.menuAttivi || 0,
-        prodottiAttivi: res.stats.prodottiAttivi || 0,
-        categorie: res.stats.categorie || 0,
-        ingredienti: res.stats.ingredienti || 0,
-        allergeni: res.stats.allergeni || 0,
-        eventi: res.stats.eventi || 0,
-        prenotazioni: res.stats.prenotazioni || 0,
-        promozioni: res.stats.promozioniAttive || 0,
+        menu: res.data.menu || 0,
+        prenotazioni: res.data.prenotazioni || 0,
+        prodottiAttivi: res.data.prodotti || 0,    
+        categorie: res.data.categorie || 0,
+        ingredienti: res.data.ingredienti || 0,
+        allergeni: res.data.allergeni || 0,
+        eventi: res.data.events || 0,              
+        tavoli: res.data.tavoli || 0,
+        promozioni: res.data.promozioni || 0,      
       }
     }
   } catch (e) {

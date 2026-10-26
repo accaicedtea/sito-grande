@@ -1,6 +1,7 @@
 <template>
   <div class="management-shell">
-    <header class="app-header">
+    <!-- Mostra header e nav solo se NON siamo nella pagina di login -->
+    <header v-if="showNav" class="app-header">
       <div class="app-header__inner">
         <!-- Hamburger mobile -->
         <button class="nav-hamburger" type="button" aria-label="Apri menu" @click="drawerOpen = !drawerOpen">
@@ -43,35 +44,40 @@
     </header>
 
     <!-- Drawer mobile -->
-    <div class="nav-drawer-overlay" v-if="drawerOpen" @click="drawerOpen = false" />
-    <div class="nav-drawer" :class="{ open: drawerOpen }">
-      <ul class="nav-drawer__list">
-        <li v-for="link in links" :key="link.to">
-          <RouterLink class="nav-drawer__link" :to="link.to" @click="drawerOpen = false">
-            {{ link.label }}
-          </RouterLink>
-        </li>
-      </ul>
-    </div>
+    <template v-if="showNav">
+      <div class="nav-drawer-overlay" v-if="drawerOpen" @click="drawerOpen = false" />
+      <div class="nav-drawer" :class="{ open: drawerOpen }">
+        <ul class="nav-drawer__list">
+          <li v-for="link in links" :key="link.to">
+            <RouterLink class="nav-drawer__link" :to="link.to" @click="drawerOpen = false">
+              {{ link.label }}
+            </RouterLink>
+          </li>
+        </ul>
+      </div>
+    </template>
 
     <main class="management-layout__main">
       <RouterView />
     </main>
 
-    <footer class="app-footer">
+    <footer v-if="showNav" class="app-footer">
       Pannello di gestione — Osteria &copy; {{ new Date().getFullYear() }}
     </footer>
   </div>
 </template>
 
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { RouterLink, RouterView, useRouter, useRoute } from 'vue-router'
 import '../styles/managment/style.css'
 
 const router = useRouter()
 const route = useRoute()
 const drawerOpen = ref(false)
+
+// Se la rotta corrente è "login", non mostriamo nav e footer
+const showNav = computed(() => route.name !== 'login')
 
 // Chiudi il drawer ogni volta che cambia rotta
 watch(() => route.fullPath, () => {
